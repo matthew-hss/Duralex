@@ -1,5 +1,7 @@
 <?php
 
+include_once '../dto/SpecialtyDto.php';
+
 class LawyerDto {
 
     private $id;

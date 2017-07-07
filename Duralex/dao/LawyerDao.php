@@ -10,7 +10,7 @@ class LawyerDao {
             $pdo = new clasePDO();
             $rut = $dto->getRut();
             $name = $dto->getName();
-            $hireDate = $dto->getHireDate();
+            $hireDate = $dto->getHireDate()->format('Y-m-d');
             $specialty = $dto->getSpecialty()->getId();
             $hourValue = $dto->getHourValue();
             
