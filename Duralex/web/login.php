@@ -8,11 +8,33 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link rel="stylesheet" href="/Duralex/web/css/layout.css" type="text/css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(document).ready(function () {
+                $(".open").click(function () {
+                    $('.pop-outer').fadeIn('slow');
+                });
+                $(".close").click(function () {
+                    $('.pop-outer').fadeOut('slow');
+                });
+            });
+        </script>
     </head>
     <body>
         <?php
-        // put your code here
-        ?>
+        session_start();
+        if (isset($_SESSION['message'])) {
+            $msg = $_SESSION['message'];
+            ?>
+            <div class = "pop-outer">
+                <div class = "pop-inner">
+                    <button class = "close">X</button>
+                    <p><?php echo $msg ?></p>
+                </div>
+            </div>
+        <?php } ?>
         <form action="/Duralex/webfiles/login.php" method="POST">
             <table border="0">
                 <tbody>
@@ -26,7 +48,8 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="INGRESAR" name="btnLogin" />
+            <input type="submit" value="INGRESAR" name="btnLogin" /><br>
+            <a href="/Duralex/web/signup.php">Registrarse</a>
         </form>        
     </body>
 </html>

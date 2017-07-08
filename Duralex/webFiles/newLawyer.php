@@ -14,7 +14,12 @@ $dto->setSpecialty($specialty);
 
 if(LawyerDao::save($dto)){
     echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
+    $_SESSION['message'] = "Registro exitoso.";
 }else{
     echo "<script type=\"text/javascript\"" . ">alert(\"Error al agregar.\");</script>";
+    $_SESSION['message'] = "Error al agregar.";
 }
+
+header('Location: /Duralex/web/newLawyer.php');
+
 

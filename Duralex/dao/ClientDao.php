@@ -10,7 +10,7 @@ class ClientDao {
             $pdo = new clasePDO();
             $rut = $dto->getRut();
             $name = $dto->getName();
-            $admission = $dto->getAdmissionDate();
+            $admission = $dto->getAdmissionDate()->format('Y-m-d');
             $personType = $dto->getPersonType();
             $address = $dto->getAddress();
             $phone = $dto->getPhone();

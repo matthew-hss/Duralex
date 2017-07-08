@@ -2,8 +2,8 @@
 
 
 abstract class RoleEnum {
-    const Gerente = 0;
-    const Administrador = 1;
-    const Secretaria = 2;
-    const Cliente = 3;
+    const Administrador = 0;
+    const Cliente = 1;
+    const Gerente = 2;    
+    const Secretaria = 3;    
 }

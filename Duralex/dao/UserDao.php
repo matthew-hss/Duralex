@@ -5,7 +5,7 @@ include_once '../dto/UserDto.php';
 
 class UserDao {
 
-    public static function signUp($dto) {
+    public static function save($dto) {
         try {
             $pdo = new clasePDO();
             $rut = $dto->getRut();

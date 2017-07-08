@@ -4,6 +4,7 @@ include_once '../dto/UserDto.php';
 include_once '../dao/UserDao.php';
 include_once '../util/RoleEnum.php';
 
+session_start();
 $password = $_POST['txtPassword'];
 $passwordConfirm = $_POST['txtPasswordConfirm'];
 if ($password == $passwordConfirm) {
@@ -11,18 +12,25 @@ if ($password == $passwordConfirm) {
     $dto->setName($_POST['txtName']);
     $dto->setRut($_POST['txtRut']);
     $dto->setPassword($_POST['txtPassword']);
-    $dto->setRole(RoleEnum::Cliente);
-    
-    if(UserDao::signUp($dto)){
-        echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
-        include_once './pages/login.php';
-    }else{
-        echo "<script type=\"text/javascript\"" . ">alert(\"Error al registrarse.\");</script>";
-        include_once './pages/signup.php';
+    if (isset($_POST['ddlRole'])) {
+        $dto->setRole($_POST['ddlRole']);
+    } else {
+        $dto->setRole(RoleEnum::Cliente);
     }
-}else{
+
+    if (UserDao::save($dto)) {
+        echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
+        $_SESSION['message'] = "Registro exitoso.";
+        header('Location: /Duralex/web/login.php');
+    } else {
+        echo "<script type=\"text/javascript\"" . ">alert(\"Error al registrarse.\");</script>";
+        $_SESSION['message'] = "Error al registrarse.";
+        header('Location: /Duralex/web/signup.php');
+    }
+} else {
     echo "<script type=\"text/javascript\"" . ">alert(\"Las contraseñas no coinciden.\");</script>";
-    include_once './pages/signup.php';
+    $_SESSION['message'] = "Las contraseñas no coinciden.";
+    header('Location: /Duralex/web/signup.php');
 }
 
 

@@ -9,16 +9,32 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
         <?php
-        $user = $_SESSION['user'];
-        if ($user->getRole() == RoleEnum::Cliente) {
-            header('Location: /Duralex/web/pages/403.php');
+        include './layout.php';
+        include_once '../dto/UserDto.php';
+        include_once '../util/RoleEnum.php';
+        session_start();
+        if (isset($_SESSION['user'])) {
+            $user = $_SESSION['user'];
+
+            if ($user != null && $user->getRole() == RoleEnum::Cliente) {
+                header('Location: /Duralex/web/403.php');
+            }
         }
         ?>
     </head>
     <body>
         <?php
-        // put your code here
-        ?>
+        session_start();
+        if (isset($_SESSION['message'])) {
+            $msg = $_SESSION['message'];
+            ?>
+            <div class = "pop-outer">
+                <div class = "pop-inner">
+                    <button class = "close">X</button>
+                    <p><?php echo $msg ?></p>
+                </div>
+            </div>
+        <?php } ?>
         <form action="/Duralex/webfiles/newClient.php" method="POST">
             <table border="0">
                 <tbody>
@@ -33,7 +49,8 @@ and open the template in the editor.
                     <tr>
                         <td>Tipo de persona</td>
                         <td><select name="ddlPersonType">
-                                <option></option>
+                                <option value="J">Jurídica</option>
+                                <option value="N">Natural</option>
                             </select></td>
                     </tr>
                     <tr>

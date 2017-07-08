@@ -9,17 +9,32 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
         <?php
+        include './layout.php';
         include_once '../dto/UserDto.php';
         include_once '../util/RoleEnum.php';
         session_start();
-        $user = $_SESSION['user'];
-        
-        if ($user->getRole() == RoleEnum::Cliente) {
-            header('Location: /Duralex/web/403.php');
+        if (isset($_SESSION['user'])) {
+            $user = $_SESSION['user'];
+
+            if ($user != null && $user->getRole() == RoleEnum::Cliente) {
+                header('Location: /Duralex/web/403.php');
+            }
         }
         ?>
     </head>
     <body>
+        <?php
+        session_start();
+        if (isset($_SESSION['message'])) {
+            $msg = $_SESSION['message'];
+            ?>
+            <div class = "pop-outer">
+                <div class = "pop-inner">
+                    <button class = "close">X</button>
+                    <p><?php echo $msg ?></p>
+                </div>
+            </div>
+        <?php } ?>
         <?php
         include_once '../dao/SpecialtyDao.php';
         include_once '../dto/SpecialtyDto.php';
@@ -42,7 +57,7 @@ and open the template in the editor.
                         <td>Especialidad</td>
                         <td><select name="ddlSpecialty">
                                 <?php foreach ($specialties as $x) { ?>
-                                <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName() ?></option>
+                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName() ?></option>
                                 <?php } ?>
                             </select></td>
                     </tr>
