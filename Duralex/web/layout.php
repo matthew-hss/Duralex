@@ -28,11 +28,25 @@ and open the template in the editor.
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
         }
+        if ($user == null) {
+            header('Location: /Duralex/web/login.php');
+        }
         ?>
     </head>
     <body>
         <div class="container">
-            <a href="/Duralex/web/index.php">Home</a>            
+            <a href="/Duralex/web/index.php">Home</a>
+            <?php if ($user->getRole() == RoleEnum::Gerente || $user->getRole() == RoleEnum::Secretaria) { ?>
+                <div class="dropdown">
+                    <button class="dropbtn">Atención</button>                
+                    <div class="dropdown-content">
+                        <?php if ($user->getRole() == RoleEnum::Secretaria) { ?>
+                            <a href="/Duralex/web/newAttention.php">Agendar Atención</a>
+                        <?php } ?>
+                        <a href="/Duralex/web/listLawyer.php">Listar Atenciones</a>
+                    </div>
+                </div>
+            <?php } ?>
             <?php if ($user->getRole() == RoleEnum::Administrador || $user->getRole() == RoleEnum::Gerente || $user->getRole() == RoleEnum::Secretaria) { ?>
                 <div class="dropdown">
                     <button class="dropbtn">Abogados</button>                
@@ -40,7 +54,7 @@ and open the template in the editor.
                         <?php if ($user->getRole() == RoleEnum::Administrador) { ?>
                             <a href="/Duralex/web/newLawyer.php">Agregar Abogado</a>
                         <?php } ?>
-                        <a href="/Duralex/web/listLawyer.php">Listar Abogado</a>
+                        <a href="/Duralex/web/listLawyer.php">Listar Abogados</a>
                     </div>
                 </div>
             <?php } ?>
@@ -51,7 +65,7 @@ and open the template in the editor.
                         <?php if ($user->getRole() == RoleEnum::Administrador) { ?>
                             <a href="/Duralex/web/newClient.php">Agregar Cliente</a>
                         <?php } ?>
-                        <a href="/Duralex/web/listClient.php">Listar Cliente</a>
+                        <a href="/Duralex/web/listClient.php">Listar Clientes</a>
                     </div>
                 </div>
             <?php } ?>
@@ -60,11 +74,11 @@ and open the template in the editor.
                     <button class="dropbtn">Usuarios</button>
                     <div class="dropdown-content">
                         <a href="/Duralex/web/newUser.php">Agregar Usuario</a>
-                        <a href="/Duralex/web/listUser.php">Listar Usuario</a>
+                        <a href="/Duralex/web/listUser.php">Listar Usuarios</a>
                     </div>
                 </div>
             <?php } ?>
-            <div class="dropdown">
+            <div class="dropdown" style="float: right">
                 <button class="dropbtn">Hola, <?php echo $user->getName(); ?> !</button>
                 <div class="dropdown-content">
                     <a href="/Duralex/web/login.php">Cerrar sesión</a>

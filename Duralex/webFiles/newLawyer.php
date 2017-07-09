@@ -11,6 +11,7 @@ $dto->setRut($_POST['txtRut']);
 $specialty = new SpecialtyDto();
 $specialty->setId($_POST['ddlSpecialty']);
 $dto->setSpecialty($specialty);
+session_start();
 
 if(LawyerDao::save($dto)){
     echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
@@ -21,5 +22,6 @@ if(LawyerDao::save($dto)){
 }
 
 header('Location: /Duralex/web/newLawyer.php');
+exit();
 
 

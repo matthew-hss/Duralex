@@ -1,8 +1,8 @@
 <?php
 
-include_once './ClientDto.php';
-include_once './LawyerDto.php';
-include_once './StatusDto.php';
+include_once '../dto/ClientDto.php';
+include_once '../dto/LawyerDto.php';
+include_once '../dto/StatusDto.php';
 
 class AttentionDto {
     private $id;

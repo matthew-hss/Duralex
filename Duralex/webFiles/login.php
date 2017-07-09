@@ -19,6 +19,7 @@ if($dto!=null){
     echo "<script type=\"text/javascript\"" . ">alert(\"El rut y/o contraseña no son válidos.\");</script>";
     $_SESSION['message'] = "El rut y/o contraseña no son válidos.";
     header('Location: /Duralex/web/login.php');
+    exit();
 }
 
 

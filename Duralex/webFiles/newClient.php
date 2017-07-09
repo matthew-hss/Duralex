@@ -11,6 +11,7 @@ $dto->setName($_POST['txtName']);
 $dto->setPersonType($_POST['ddlPersonType']);
 $dto->setPhone($_POST['txtPhone']);
 $dto->setRut($_POST['txtRut']);
+session_start();
 
 if(ClientDao::save($dto)){
     echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
@@ -20,4 +21,5 @@ if(ClientDao::save($dto)){
     $_SESSION['message'] = "Error al agregar.";
 }
 header('Location: /Duralex/web/newClient.php');
+exit();
 

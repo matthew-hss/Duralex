@@ -22,15 +22,18 @@ if ($password == $passwordConfirm) {
         echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
         $_SESSION['message'] = "Registro exitoso.";
         header('Location: /Duralex/web/login.php');
+        exit();
     } else {
         echo "<script type=\"text/javascript\"" . ">alert(\"Error al registrarse.\");</script>";
         $_SESSION['message'] = "Error al registrarse.";
         header('Location: /Duralex/web/signup.php');
+        exit();
     }
 } else {
     echo "<script type=\"text/javascript\"" . ">alert(\"Las contraseñas no coinciden.\");</script>";
     $_SESSION['message'] = "Las contraseñas no coinciden.";
     header('Location: /Duralex/web/signup.php');
+    exit();
 }
 
 

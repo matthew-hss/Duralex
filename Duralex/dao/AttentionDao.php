@@ -8,7 +8,7 @@ class AttentionDao {
     public static function save($dto) {
         try {
             $pdo = new clasePDO();
-            $date = $dto->getDate();
+            $date = $dto->getDate()->format('Y-m-d');
             $client = $dto->getClient()->getId();
             $lawyer = $dto->getLawyer()->getId();
             $status = $dto->getStatus()->getId();

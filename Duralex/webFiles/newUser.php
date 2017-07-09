@@ -6,6 +6,8 @@ include_once '../util/RoleEnum.php';
 
 $password = $_POST['txtPassword'];
 $passwordConfirm = $_POST['txtPasswordConfirm'];
+session_start();
+
 if ($password == $passwordConfirm) {
     $dto = new UserDto();
     $dto->setName($_POST['txtName']);
