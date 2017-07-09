@@ -57,6 +57,8 @@
     display: block;
 }
 
+/*********alert message pop up*********/
+
 .pop-outer{
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -84,4 +86,38 @@ button.close {
     position: absolute;
     top: 14px;
     right: 15px;
+}
+
+/************table************/
+
+html, body {
+    width: 100%;
+}
+
+table.width {
+    /*border-collapse: collapse;*/
+    width: 100%;
+    margin: 0 auto;    
+}
+
+table.center{
+    margin: 0 auto;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #333;
+    color: white;
+}
+
+/****inputs and buttons****/
+
+.buttonHolder{ 
+    text-align: center; 
 }

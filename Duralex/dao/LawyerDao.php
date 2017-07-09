@@ -2,6 +2,7 @@
 
 include_once '../dto/LawyerDto.php';
 include_once '../sql/ClasePDO.php';
+include_once '../dao/SpecialtyDao.php';
 
 class LawyerDao {
     
@@ -45,7 +46,7 @@ class LawyerDao {
                 $dto->setRut($x['rut']);
                 $dto->setName($x['name']);
                 $dto->setHireDate($x['hire_date']);
-                $dto->getSpecialty()->setId($x['specialty_id']);
+                $dto->setSpecialty(SpecialtyDao::getSpecialtyById($x['specialty_id']));
                 $dto->setHourValue($x['hour_value']);
                 $lawyers->append($dto);
             }

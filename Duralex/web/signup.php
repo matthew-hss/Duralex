@@ -36,7 +36,7 @@ and open the template in the editor.
             </div>
         <?php } ?>
         <form action="/Duralex/webfiles/signup.php" method="POST">
-            <table border="0">
+            <table border="0" class="center">
                 <tbody>
                     <tr>
                         <td>RUT</td>
@@ -56,7 +56,9 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="INGRESAR" name="btnLogin" />
+            <div class="buttonHolder">
+                <input type="submit" value="INGRESAR" name="btnLogin" />
+            </div>
         </form>
     </body>
 </html>

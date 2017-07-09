@@ -4,6 +4,9 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+<?php session_start();
+unset($_SESSION['user']);
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -24,19 +27,21 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        session_start();
         if (isset($_SESSION['message'])) {
             $msg = $_SESSION['message'];
             ?>
             <div class = "pop-outer">
                 <div class = "pop-inner">
                     <button class = "close">X</button>
-                    <p><?php echo $msg ?></p>
+                    <p><?php echo $msg; ?></p>
                 </div>
             </div>
-        <?php } ?>
+            <?php
+            unset($_SESSION['message']);
+        }
+        ?>
         <form action="/Duralex/webfiles/login.php" method="POST">
-            <table border="0">
+            <table border="0" class="center">
                 <tbody>
                     <tr>
                         <td>RUT</td>
@@ -48,8 +53,10 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="INGRESAR" name="btnLogin" /><br>
-            <a href="/Duralex/web/signup.php">Registrarse</a>
+            <div class="buttonHolder">
+                <input type="submit" value="INGRESAR" name="btnLogin" /><br>
+                <a href="/Duralex/web/signup.php">Registrarse</a>
+            </div>
         </form>        
     </body>
 </html>

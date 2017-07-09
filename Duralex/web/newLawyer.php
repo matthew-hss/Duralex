@@ -9,22 +9,23 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
         <?php
-        include './layout.php';
         include_once '../dto/UserDto.php';
         include_once '../util/RoleEnum.php';
         session_start();
+        $user = null;
         if (isset($_SESSION['user'])) {
             $user = $_SESSION['user'];
-
-            if ($user != null && $user->getRole() == RoleEnum::Cliente) {
-                header('Location: /Duralex/web/403.php');
-            }
         }
+        if ($user == null) {
+            header('Location: /Duralex/web/login.php');
+        } elseif ($user->getRole() != RoleEnum::Administrador) {
+            header('Location: /Duralex/web/403.php');
+        }
+        include './layout.php';
         ?>
     </head>
     <body>
         <?php
-        session_start();
         if (isset($_SESSION['message'])) {
             $msg = $_SESSION['message'];
             ?>

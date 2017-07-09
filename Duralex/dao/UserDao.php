@@ -55,4 +55,27 @@ class UserDao {
         return $dto;
     }
 
+    public static function getUsers(){
+        $users = new ArrayObject();
+        try {
+            $pdo = new ClasePdo();
+            $select = $pdo->prepare("SELECT * FROM user");
+            $select->execute();
+            $fetch = $select->fetchAll();
+            
+            foreach ($fetch as $x) {
+                $dto = new UserDto();
+                $dto->setId($x['id']);
+                $dto->setRut($x['rut']);
+                $dto->setName($x['name']);
+                $dto->setPassword($x['password']);
+                $dto->setRole($x['role']);
+                $users->append($dto);
+            }
+        } catch (PDOException $ex) {
+            $users = new ArrayObject();
+            echo "Error SQL al obtener usuarios: ".$ex->getMessage();
+        }
+        return $users;
+    }
 }
