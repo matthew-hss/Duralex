@@ -17,6 +17,7 @@ and open the template in the editor.
         include_once '../dao/AttentionDao.php';
         include_once '../dao/LawyerDao.php';
         include_once '../dao/StatusDao.php';
+        include_once '../util/RutUtils.php';
         session_start();
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -60,7 +61,7 @@ and open the template in the editor.
                 <tbody>
                     <tr>
                         <td>Rut Cliente</td>
-                        <td><input type="text" name="txtRut" value="" /></td>
+                        <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
                         <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
                     </tr>
                 </tbody>
@@ -91,7 +92,7 @@ and open the template in the editor.
                                     <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
                                 <?php } ?>
                             </select></td>
-                            <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
+                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
                     </tr>
                 </tbody>
             </table>            
@@ -109,7 +110,7 @@ and open the template in the editor.
             <tbody>
                 <?php foreach ($attentions as $x) { ?>
                     <tr>
-                        <td><?php echo $x->getClient()->getRut(); ?></td>
+                        <td><?php echo RutUtils::formatRut($x->getClient()->getRut()); ?></td>
                         <td><?php echo $x->getClient()->getName(); ?></td>
                         <td><?php echo $x->getLawyer()->getName(); ?></td>
                         <td><?php echo $x->getDate()->format('d-m-Y'); ?></td>

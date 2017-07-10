@@ -7,13 +7,13 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>        
+        <title></title>
         <?php
         include_once '../dto/UserDto.php';
-        include_once '../dao/UserDao.php';
         include_once '../util/RoleEnum.php';
         include_once '../util/RutUtils.php';
-        
+        include_once '../dto/ClientDto.php';
+        include_once '../dao/ClientDao.php';
         session_start();
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -43,23 +43,45 @@ and open the template in the editor.
         }
         ?>
         <?php
-        $users = UserDao::getUsers();
+        $clients = ClientDao::getClients();
         ?>
-        <form action="/Duralex/webFiles/listUser.php" method="POST">
+        <form action="/Duralex/webFiles/deleteClient.php" method="POST">
+            <table border="0">                
+                <tbody>
+                    <tr>
+                        <td>Rut Cliente</td>
+                        <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
+                        <td><input type="submit" value="ELIMINAR" name="btnDelete" /></td>
+                    </tr>
+                </tbody>
+            </table>            
+        </form>
+        <form action="/Duralex/webFiles/listClient.php" method="POST">
             <table border="0" class="width">
                 <thead>
                     <tr>
                         <th>Rut</th>
                         <th>Nombre</th>
-                        <th>Rol</th>
+                        <th>Fecha de admisión</th>
+                        <th>Tipo de persona</th>                        
+                        <th>Teléfono</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($users as $x) { ?>
+                    <?php foreach ($clients as $x) { ?>
                         <tr>
                             <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
                             <td><?php echo $x->getName(); ?></td>
-                            <td><?php RoleEnum::getRole($x->getRole()); ?></td>
+                            <td><?php echo $x->getAdmissionDate()->format('d-m-Y'); ?></td>
+                            <td>
+                                <?php
+                                if ($x->getPersonType() == "J") {
+                                    echo "Jurídica";
+                                } elseif ($x->getPersonType() == "N") {
+                                    echo "Natural";
+                                }
+                                ?></td>                            
+                            <td><?php echo $x->getPhone(); ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

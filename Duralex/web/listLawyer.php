@@ -11,6 +11,9 @@ and open the template in the editor.
         <?php
         include_once '../dto/UserDto.php';
         include_once '../util/RoleEnum.php';
+        include_once '../util/RutUtils.php';
+        include_once '../dto/LawyerDto.php';
+        include_once '../dao/LawyerDao.php';
         session_start();
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -40,10 +43,28 @@ and open the template in the editor.
         }
         ?>
         <?php
-        include_once '../dto/LawyerDto.php';
-        include_once '../dao/LawyerDao.php';
-
-        $lawyers = LawyerDao::getLawyers();
+        if (isset($_SESSION['lawyer'])) {
+            $lawyers = new ArrayObject();
+            $lawyer = $_SESSION['lawyer'];
+            unset($_SESSION['lawyer']);
+            $lawyers->append($lawyer);            
+        } else {
+            $lawyers = LawyerDao::getLawyers();
+        }
+        ?>       
+        <form action="/Duralex/webFiles/listLawyerByRut.php" method="POST">
+            <table border="0">                
+                <tbody>
+                    <tr>
+                        <td>Rut Cliente</td>
+                        <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
+                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
+                    </tr>
+                </tbody>
+            </table>            
+        </form>    
+        <?php
+        
         ?>
         <form action="/Duralex/webFiles/listLawyer.php" method="POST">
             <table border="0" class="width">
@@ -59,7 +80,7 @@ and open the template in the editor.
                 <tbody>
                     <?php foreach ($lawyers as $x) { ?>
                         <tr>
-                            <td><?php echo $x->getRut(); ?></td>
+                            <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
                             <td><?php echo $x->getName(); ?></td>
                             <td><?php echo $x->getHireDate()->format('d-m-Y'); ?></td>
                             <td><?php echo $x->getSpecialty()->getName(); ?></td>

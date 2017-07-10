@@ -11,6 +11,7 @@ and open the template in the editor.
         <?php
         include_once '../dto/UserDto.php';
         include_once '../util/RoleEnum.php';
+        include_once '../util/RutUtils.php';
         include_once '../dto/AttentionDto.php';
         include_once '../dto/LawyerDto.php';
         include_once '../dto/StatusDto.php';
@@ -98,7 +99,7 @@ and open the template in the editor.
             <tbody>
                 <?php foreach ($attentions as $x) { ?>
                     <tr>
-                        <td><?php echo $x->getClient()->getRut(); ?></td>
+                        <td><?php echo RutUtils::formatRut($x->getClient()->getRut()); ?></td>
                         <td><?php echo $x->getClient()->getName(); ?></td>
                         <td><?php echo $x->getLawyer()->getName(); ?></td>
                         <td><?php echo $x->getDate()->format('d-m-Y'); ?></td>

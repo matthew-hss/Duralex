@@ -2,21 +2,22 @@
 
 include_once '../dto/ClientDto.php';
 include_once '../sql/ClasePDO.php';
+include_once '../util/RutUtils.php';
 
 class ClientDao {
 
     public static function save($dto) {
         try {
             $pdo = new clasePDO();
-            $rut = $dto->getRut();
+            $rutNumber = RutUtils::getRutNumber($dto->getRut());
             $name = $dto->getName();
             $admission = $dto->getAdmissionDate()->format('Y-m-d');
             $personType = $dto->getPersonType();
-            $address = $dto->getAddress();
+            $address = md5($dto->getAddress());
             $phone = $dto->getPhone();
 
             $insert = $pdo->prepare("INSERT INTO client(rut, name, admission_date, person_type, address, phone) VALUES(?,?,?,?,?,?)");
-            $insert->bindParam(1, $rut);
+            $insert->bindParam(1, $rutNumber);
             $insert->bindParam(2, $name);
             $insert->bindParam(3, $admission);
             $insert->bindParam(4, $personType);
@@ -63,8 +64,9 @@ class ClientDao {
         $dto = null;
         try {
             $pdo = new ClasePdo();
+            $rutNumber = RutUtils::getRutNumber($rut);
             $select = $pdo->prepare("SELECT * FROM client WHERE rut=?");
-            $select->bindParam(1, $rut);
+            $select->bindParam(1, $rutNumber);
             $select->execute();
             $fetch = $select->fetchAll();
             
@@ -167,4 +169,37 @@ class ClientDao {
         return $clients;
     }
 
+    public static function exist($rut){
+        try {
+            $pdo = new clasePDO();
+            $rutNumber = RutUtils::getRutNumber($rut);
+            $select = $pdo->prepare("SELECT * FROM client WHERE rut=?");
+            $select->bindParam(1, $rutNumber);
+            $select->execute();
+            
+            if($select->rowCount()>0){
+                return true;
+            }
+        } catch (PDOException $ex) {
+            echo "Error SQL al verificar cliente: ".$ex->getMessage();
+        }
+        return false;
+    }
+    
+    public static function deleteByRut($rut){
+        try {
+            $pdo = new clasePDO();
+            $rutNumber = RutUtils::getRutNumber($rut);
+            $delete = $pdo->prepare("DELETE FROM client WHERE rut=?");
+            $delete->bindParam(1, $rutNumber);
+            $delete->execute();
+            
+            if($delete->rowCount()>0){
+                return true;
+            }
+        } catch (PDOException $ex) {
+            echo "Error SQL al eliminar cliente: ".$ex->getMessage();
+        }
+        return false;
+    }
 }

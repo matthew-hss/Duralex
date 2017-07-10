@@ -11,6 +11,7 @@ and open the template in the editor.
         <?php
         include_once '../dto/UserDto.php';
         include_once '../util/RoleEnum.php';
+        include_once '../util/RutUtils.php';
         session_start();
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -44,7 +45,7 @@ and open the template in the editor.
                 <tbody>
                     <tr>
                         <td>RUT</td>
-                        <td><input type="text" name="txtRut" value="" required="true"/></td>
+                        <td><input id="rut" type="text" name="txtRut" value="" required="true" oninput="checkRut(this)"/></td>
                     </tr>
                     <tr>
                         <td>Nombre</td>

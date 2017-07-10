@@ -2,6 +2,7 @@
 
 include_once '../sql/ClasePDO.php';
 include_once '../dto/UserDto.php';
+include_once '../util/RutUtils.php';
 
 class UserDao {
 
@@ -33,10 +34,11 @@ class UserDao {
         $dto = null;
         try {
             $pdo = new clasePDO();
+            $rutNumber = RutUtils::getRutNumber($rut);
             $pass = md5($password);
 
             $select = $pdo->prepare("SELECT * FROM user WHERE rut=? and password=?");
-            $select->bindParam(1, $rut);
+            $select->bindParam(1, $rutNumber);
             $select->bindParam(2, $pass);
             $select->execute();
 

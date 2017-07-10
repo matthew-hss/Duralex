@@ -21,6 +21,19 @@ and open the template in the editor.
                 });
             });
         </script>
+        <script type="text/javascript">
+            $(function () {
+                $("#signup-rut").focusout(function () {
+                    var rut = $(this).val();
+                    rut = rut.toUpperCase();
+                    rut = rut.replace(".", "");
+                    rut = rut.replace("-", "");
+                    rut = rut.substring(0, rut.length - 7) + "." + rut.substring(rut.length - 7, rut.length - 4) + "."
+                            + "" + rut.substring(rut.length - 4, rut.length - 1) + "-" + rut.charAt(rut.length - 1);
+                    $(this).val(rut);
+                });
+            });
+        </script>
     </head>
     <body>
         <?php
@@ -42,7 +55,7 @@ and open the template in the editor.
                 <tbody>
                     <tr>
                         <td>RUT</td>
-                        <td><input type="text" name="txtRut" value="" /></td>
+                        <td><input id="signup-rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
                     </tr>
                     <tr>
                         <td>Nombre</td>

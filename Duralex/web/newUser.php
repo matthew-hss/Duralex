@@ -44,7 +44,7 @@ and open the template in the editor.
                 <tbody>
                     <tr>
                         <td>RUT</td>
-                        <td><input type="text" name="txtRut" value="" /></td>
+                        <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
                     </tr>
                     <tr>
                         <td>Nombre</td>

@@ -20,6 +20,13 @@ and open the template in the editor.
         <?php
         include_once '../dto/UserDto.php';
         include_once '../util/RoleEnum.php';
+        include_once '../util/RutUtils.php';
+        include_once '../dto/StatusDto.php';
+        include_once '../dto/LawyerDto.php';
+        include_once '../dto/ClientDto.php';
+        include_once '../dao/StatusDao.php';
+        include_once '../dao/LawyerDao.php';
+        include_once '../dao/ClientDao.php';
         session_start();
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -49,12 +56,7 @@ and open the template in the editor.
         }
         ?>
         <?php
-        include_once '../dto/StatusDto.php';
-        include_once '../dto/LawyerDto.php';
-        include_once '../dto/ClientDto.php';
-        include_once '../dao/StatusDao.php';
-        include_once '../dao/LawyerDao.php';
-        include_once '../dao/ClientDao.php';
+        
 
         $statuses = StatusDao::getStatuses();
         $lawyers = LawyerDao::getLawyers();
@@ -78,7 +80,7 @@ and open the template in the editor.
                         <td>
                             <select name="ddlClient">
                                 <?php foreach ($clients as $x) { ?>
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getRut(); ?></option>
+                                <option value="<?php echo $x->getId(); ?>"><?php echo RutUtils::formatRut($x->getRut()); ?></option>
                                 <?php } ?>
                             </select>
                         </td>
