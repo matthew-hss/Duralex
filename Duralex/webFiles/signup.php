@@ -19,19 +19,16 @@ if ($password == $passwordConfirm) {
         $dto->setRole(RoleEnum::Cliente);
     }
 
-    if (UserDao::save($dto)) {
-        echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
+    if (UserDao::save($dto)) {        
         $_SESSION['message'] = "Registro exitoso.";
         header('Location: /Duralex/web/login.php');
         exit();
-    } else {
-        echo "<script type=\"text/javascript\"" . ">alert(\"Error al registrarse.\");</script>";
+    } else {        
         $_SESSION['message'] = "Error al registrarse.";
         header('Location: /Duralex/web/signup.php');
         exit();
     }
-} else {
-    echo "<script type=\"text/javascript\"" . ">alert(\"Las contraseñas no coinciden.\");</script>";
+} else {    
     $_SESSION['message'] = "Las contraseñas no coinciden.";
     header('Location: /Duralex/web/signup.php');
     exit();

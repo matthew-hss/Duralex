@@ -152,4 +152,21 @@ class LawyerDao {
         }
         return $lawyers;
     }
+    
+    public static function deleteByRut($rut){
+        try {
+            $pdo = new clasePDO();
+            $rutNumber = RutUtils::getRutNumber($rut);
+            $delete = $pdo->prepare("DELETE FROM lawyer WHERE rut=?");
+            $delete->bindParam(1, $rutNumber);
+            $delete->execute();
+            
+            if($delete->rowCount()>0){
+                return true;
+            }
+        } catch (PDOException $ex) {
+            echo "Error SQL al eliminar abogado: ".$ex->getMessage();
+        }
+        return false;
+    }
 }

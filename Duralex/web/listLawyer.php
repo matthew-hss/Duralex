@@ -47,7 +47,7 @@ and open the template in the editor.
             $lawyers = new ArrayObject();
             $lawyer = $_SESSION['lawyer'];
             unset($_SESSION['lawyer']);
-            $lawyers->append($lawyer);            
+            $lawyers->append($lawyer);
         } else {
             $lawyers = LawyerDao::getLawyers();
         }
@@ -56,40 +56,34 @@ and open the template in the editor.
             <table border="0">                
                 <tbody>
                     <tr>
-                        <td>Rut Cliente</td>
+                        <td>Rut Abogado</td>
                         <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
                         <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
                     </tr>
                 </tbody>
             </table>            
-        </form>    
-        <?php
-        
-        ?>
-        <form action="/Duralex/webFiles/listLawyer.php" method="POST">
-            <table border="0" class="width">
-                <thead>
-                    <tr>
-                        <th>Rut</th>
-                        <th>Nombre</th>
-                        <th>Fecha de contratación</th>
-                        <th>Especialidad</th>
-                        <th>Valor hora</th>                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($lawyers as $x) { ?>
-                        <tr>
-                            <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
-                            <td><?php echo $x->getName(); ?></td>
-                            <td><?php echo $x->getHireDate()->format('d-m-Y'); ?></td>
-                            <td><?php echo $x->getSpecialty()->getName(); ?></td>
-                            <td><?php echo $x->getHourValue(); ?></td>                            
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-
         </form>
+        <table border="0" class="width">
+            <thead>
+                <tr>
+                    <th>Rut</th>
+                    <th>Nombre</th>
+                    <th>Fecha de contratación</th>
+                    <th>Especialidad</th>
+                    <th>Valor hora</th>                        
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($lawyers as $x) { ?>
+                    <tr>
+                        <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
+                        <td><?php echo $x->getName(); ?></td>
+                        <td><?php echo $x->getHireDate()->format('d-m-Y'); ?></td>
+                        <td><?php echo $x->getSpecialty()->getName(); ?></td>
+                        <td><?php echo $x->getHourValue(); ?></td>                            
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
     </body>
 </html>

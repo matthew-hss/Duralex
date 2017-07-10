@@ -13,11 +13,9 @@ $specialty = new SpecialtyDto();
 $specialty->setId($_POST['ddlSpecialty']);
 $dto->setSpecialty($specialty);
 
-if(LawyerDao::save($dto)){
-    echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
+if(LawyerDao::save($dto)){    
     $_SESSION['message'] = "Registro exitoso.";
-}else{
-    echo "<script type=\"text/javascript\"" . ">alert(\"Error al agregar.\");</script>";
+}else{    
     $_SESSION['message'] = "Error al agregar.";
 }
 

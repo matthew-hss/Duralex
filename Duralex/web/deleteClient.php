@@ -55,38 +55,35 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>            
-        </form>
-        <form action="/Duralex/webFiles/listClient.php" method="POST">
-            <table border="0" class="width">
-                <thead>
+        </form>        
+        <table border="0" class="width">
+            <thead>
+                <tr>
+                    <th>Rut</th>
+                    <th>Nombre</th>
+                    <th>Fecha de admisión</th>
+                    <th>Tipo de persona</th>                        
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($clients as $x) { ?>
                     <tr>
-                        <th>Rut</th>
-                        <th>Nombre</th>
-                        <th>Fecha de admisión</th>
-                        <th>Tipo de persona</th>                        
-                        <th>Teléfono</th>
+                        <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
+                        <td><?php echo $x->getName(); ?></td>
+                        <td><?php echo $x->getAdmissionDate()->format('d-m-Y'); ?></td>
+                        <td>
+                            <?php
+                            if ($x->getPersonType() == "J") {
+                                echo "Jurídica";
+                            } elseif ($x->getPersonType() == "N") {
+                                echo "Natural";
+                            }
+                            ?></td>                            
+                        <td><?php echo $x->getPhone(); ?></td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($clients as $x) { ?>
-                        <tr>
-                            <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
-                            <td><?php echo $x->getName(); ?></td>
-                            <td><?php echo $x->getAdmissionDate()->format('d-m-Y'); ?></td>
-                            <td>
-                                <?php
-                                if ($x->getPersonType() == "J") {
-                                    echo "Jurídica";
-                                } elseif ($x->getPersonType() == "N") {
-                                    echo "Natural";
-                                }
-                                ?></td>                            
-                            <td><?php echo $x->getPhone(); ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-
-        </form>
+                <?php } ?>
+            </tbody>
+        </table>
     </body>
 </html>

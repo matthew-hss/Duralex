@@ -166,12 +166,13 @@ class AttentionDao {
 
     public static function getAttentionsBetweenDates($from, $to) {
         $attentions = new ArrayObject();
-
+        $fromDate = $from->format('Y-m-d');
+        $toDate = $to->format('Y-m-d');
         try {
             $pdo = new clasePDO();
             $select = $pdo->prepare("SELECT * FROM attention WHERE date between ? and ?");
-            $select->bindParam(1, $from);
-            $select->bindParam(2, $to);
+            $select->bindParam(1, $fromDate);
+            $select->bindParam(2, $toDate);
             $select->execute();
             $fetch = $select->fetchAll();
 

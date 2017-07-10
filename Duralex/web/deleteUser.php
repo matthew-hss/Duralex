@@ -52,13 +52,13 @@ and open the template in the editor.
             $users = UserDao::getUsers();
         }
         ?>
-        <form action="/Duralex/webFiles/listUserByRut.php" method="POST">
+        <form action="/Duralex/webFiles/deleteUser.php" method="POST">
             <table border="0">                
                 <tbody>
                     <tr>
                         <td>Rut Usuario</td>
                         <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
+                        <td><input type="submit" value="ELIMINAR" name="btnDelete" /></td>
                     </tr>
                 </tbody>
             </table>            

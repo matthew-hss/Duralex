@@ -7,13 +7,13 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>        
+        <title></title>
         <?php
         include_once '../dto/UserDto.php';
-        include_once '../dao/UserDao.php';
         include_once '../util/RoleEnum.php';
         include_once '../util/RutUtils.php';
-
+        include_once '../dto/LawyerDto.php';
+        include_once '../dao/LawyerDao.php';
         session_start();
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -43,22 +43,22 @@ and open the template in the editor.
         }
         ?>
         <?php
-        if (isset($_SESSION['user2'])) {
-            $users = new ArrayObject();
-            $user2 = $_SESSION['user2'];
-            unset($_SESSION['user2']);
-            $users->append($user2);
+        if (isset($_SESSION['lawyer'])) {
+            $lawyers = new ArrayObject();
+            $lawyer = $_SESSION['lawyer'];
+            unset($_SESSION['lawyer']);
+            $lawyers->append($lawyer);
         } else {
-            $users = UserDao::getUsers();
+            $lawyers = LawyerDao::getLawyers();
         }
-        ?>
-        <form action="/Duralex/webFiles/listUserByRut.php" method="POST">
+        ?>       
+        <form action="/Duralex/webFiles/deleteLawyer.php" method="POST">
             <table border="0">                
                 <tbody>
                     <tr>
-                        <td>Rut Usuario</td>
+                        <td>Rut Abogado</td>
                         <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
+                        <td><input type="submit" value="ELIMINAR" name="btnDelete" /></td>
                     </tr>
                 </tbody>
             </table>            
@@ -68,15 +68,19 @@ and open the template in the editor.
                 <tr>
                     <th>Rut</th>
                     <th>Nombre</th>
-                    <th>Rol</th>
+                    <th>Fecha de contratación</th>
+                    <th>Especialidad</th>
+                    <th>Valor hora</th>                        
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($users as $x) { ?>
+                <?php foreach ($lawyers as $x) { ?>
                     <tr>
                         <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
                         <td><?php echo $x->getName(); ?></td>
-                        <td><?php RoleEnum::getRole($x->getRole()); ?></td>
+                        <td><?php echo $x->getHireDate()->format('d-m-Y'); ?></td>
+                        <td><?php echo $x->getSpecialty()->getName(); ?></td>
+                        <td><?php echo $x->getHourValue(); ?></td>                            
                     </tr>
                 <?php } ?>
             </tbody>

@@ -168,6 +168,34 @@ class ClientDao {
         }
         return $clients;
     }
+    
+    public static function getClientsByMonthAmount($months){
+        $clients = new ArrayObject();
+        try {
+            $pdo = new ClasePdo();
+            $select = $pdo->prepare("SELECT * FROM client WHERE ROUND(DATEDIFF(now(),date)/30)=?");
+            $select->bindParam(1, $months);
+            $select->execute();
+            $fetch = $select->fetchAll();
+            
+            foreach ($fetch as $x) {
+                $dto = new ClientDto();
+                $dto->setId($x['id']);
+                $dto->setRut($x['rut']);
+                $dto->setName($x['name']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['admission_date']);                
+                $dto->setAdmissionDate($date);
+                $dto->setPersonType($x['person_type']);
+                $dto->setAddress($x['address']);
+                $dto->setPhone($x['phone']);
+                $clients->append($dto);
+            }
+        } catch (PDOException $ex) {
+            $clients = new ArrayObject();
+            echo "Error SQL al obtener clientes: ".$ex->getMessage();
+        }
+        return $clients;
+    }
 
     public static function exist($rut){
         try {

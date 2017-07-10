@@ -72,6 +72,7 @@ and open the template in the editor.
                     <div class="dropdown-content">
                         <?php if ($user->getRole() == RoleEnum::Administrador) { ?>
                             <a href="/Duralex/web/newLawyer.php">Agregar Abogado</a>
+                            <a href="/Duralex/web/deleteLawyer.php">Eliminar Abogado</a>
                         <?php } ?>
                         <a href="/Duralex/web/listLawyer.php">Listar Abogados</a>
                     </div>
@@ -94,7 +95,17 @@ and open the template in the editor.
                     <button class="dropbtn">Usuarios</button>
                     <div class="dropdown-content">
                         <a href="/Duralex/web/newUser.php">Agregar Usuario</a>
+                        <a href="/Duralex/web/deleteUser.php">Eliminar Usuario</a>
                         <a href="/Duralex/web/listUser.php">Listar Usuarios</a>
+                    </div>
+                </div>
+            <?php } ?>
+            <?php if ($user->getRole() == RoleEnum::Gerente) { ?>
+                <div class="dropdown">
+                    <button class="dropbtn">Estadísticas</button>
+                    <div class="dropdown-content">
+                        <a href="/Duralex/web/statisticsAttention.php">Atenciones</a>
+                        <a href="/Duralex/web/statisticsClient.php">Clientes</a>                        
                     </div>
                 </div>
             <?php } ?>

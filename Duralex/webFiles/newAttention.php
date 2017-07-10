@@ -15,11 +15,9 @@ $dto->getLawyer()->setId($_POST['ddlLawyer']);
 $dto->getStatus()->setId($_POST['ddlStatus']);
 
 
-if (AttentionDao::save($dto)) {
-    echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";
+if (AttentionDao::save($dto)) {    
     $_SESSION['message'] = "Registro exitoso.";
-} else {
-    echo "<script type=\"text/javascript\"" . ">alert(\"Error al agregar.\");</script>";
+} else {    
     $_SESSION['message'] = "Error al agregar.";
 }
 
