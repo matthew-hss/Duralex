@@ -26,6 +26,20 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        if (isset($_SESSION['message'])) {
+            $msg = $_SESSION['message'];
+            ?>
+            <div class = "pop-outer">
+                <div class = "pop-inner">
+                    <button class = "close">X</button>
+                    <p><?php echo $msg; ?></p>
+                </div>
+            </div>
+            <?php
+            unset($_SESSION['message']);
+        }
+        ?>
+        <?php
         include_once '../dto/ClientDto.php';
         include_once '../dao/ClientDao.php';
 
@@ -48,7 +62,7 @@ and open the template in the editor.
                         <tr>
                             <td><?php echo $x->getRut(); ?></td>
                             <td><?php echo $x->getName(); ?></td>
-                            <td><?php echo $x->getAdmissionDate(); ?></td>
+                            <td><?php echo $x->getAdmissionDate()->format('d-m-Y'); ?></td>
                             <td>
                                 <?php
                                 if ($x->getPersonType() == "J") {

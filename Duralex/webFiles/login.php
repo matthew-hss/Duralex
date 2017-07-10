@@ -3,11 +3,11 @@
 include_once '../dao/UserDao.php';
 include_once '../dto/UserDto.php';
 
+session_start();
 $rut = $_POST['txtRut'];
 $password = $_POST['txtPassword'];
 $dto = UserDao::authenticate($rut, $password);
 
-session_start();
 $_SESSION['user'] = $dto;
 
 if($dto!=null){

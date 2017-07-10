@@ -32,6 +32,31 @@ class LawyerDao {
         return false;
     }
     
+    public static function getLawyerById($id){
+        $dto = null;
+        try {
+            $pdo = new clasePDO();
+            $select = $pdo->prepare("SELECT * FROM lawyer WHERE id=?");
+            $select->bindParam(1, $id);
+            $select->execute();
+            $fetch = $select->fetchAll();
+            
+            foreach ($fetch as $x) {
+                $dto = new LawyerDto();
+                $dto->setId($x['id']);
+                $dto->setRut($x['rut']);
+                $dto->setName($x['name']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['hire_date']);
+                $dto->setHireDate($date);
+                $dto->setSpecialty(SpecialtyDao::getSpecialtyById($x['specialty_id']));
+                $dto->setHourValue($x['hour_value']);                
+            }
+        } catch (PDOException $ex) {            
+            echo "Error SQL al obtener abogado: ".$ex->getMessage();
+        }
+        return $dto;
+    }
+    
     public static function getLawyers(){
         $lawyers = new ArrayObject();
         try {
@@ -45,7 +70,8 @@ class LawyerDao {
                 $dto->setId($x['id']);
                 $dto->setRut($x['rut']);
                 $dto->setName($x['name']);
-                $dto->setHireDate($x['hire_date']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['hire_date']);
+                $dto->setHireDate($date);
                 $dto->setSpecialty(SpecialtyDao::getSpecialtyById($x['specialty_id']));
                 $dto->setHourValue($x['hour_value']);
                 $lawyers->append($dto);
@@ -70,7 +96,8 @@ class LawyerDao {
                 $dto->setId($x['id']);
                 $dto->setRut($x['rut']);
                 $dto->setName($x['name']);
-                $dto->setHireDate($x['hire_date']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['hire_date']);
+                $dto->setHireDate($date);
                 $dto->getSpecialty()->setId($x['specialty_id']);
                 $dto->setHourValue($x['hour_value']);
                 $lawyers->append($dto);

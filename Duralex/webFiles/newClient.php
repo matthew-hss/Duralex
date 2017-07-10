@@ -4,6 +4,7 @@ include_once '../dto/ClientDto.php';
 include_once '../dao/ClientDao.php';
 include_once '../util/RoleEnum.php';
 
+session_start();
 $dto = new ClientDto();
 $dto->setAddress($_POST['txtAddress']);
 $dto->setAdmissionDate(new DateTime());
@@ -11,7 +12,6 @@ $dto->setName($_POST['txtName']);
 $dto->setPersonType($_POST['ddlPersonType']);
 $dto->setPhone($_POST['txtPhone']);
 $dto->setRut($_POST['txtRut']);
-session_start();
 
 if(ClientDao::save($dto)){
     echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";

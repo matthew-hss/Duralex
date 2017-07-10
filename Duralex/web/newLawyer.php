@@ -32,10 +32,13 @@ and open the template in the editor.
             <div class = "pop-outer">
                 <div class = "pop-inner">
                     <button class = "close">X</button>
-                    <p><?php echo $msg ?></p>
+                    <p><?php echo $msg; ?></p>
                 </div>
             </div>
-        <?php } ?>
+            <?php
+            unset($_SESSION['message']);
+        }
+        ?>
         <?php
         include_once '../dao/SpecialtyDao.php';
         include_once '../dto/SpecialtyDto.php';

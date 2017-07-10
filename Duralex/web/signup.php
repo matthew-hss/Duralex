@@ -24,17 +24,19 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        session_start();
         if (isset($_SESSION['message'])) {
             $msg = $_SESSION['message'];
             ?>
             <div class = "pop-outer">
                 <div class = "pop-inner">
                     <button class = "close">X</button>
-                    <p><?php echo $msg ?></p>
+                    <p><?php echo $msg; ?></p>
                 </div>
             </div>
-        <?php } ?>
+            <?php
+            unset($_SESSION['message']);
+        }
+        ?>
         <form action="/Duralex/webfiles/signup.php" method="POST">
             <table border="0" class="center">
                 <tbody>

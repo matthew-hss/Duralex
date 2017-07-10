@@ -36,14 +36,19 @@ and open the template in the editor.
     <body>
         <div class="container">
             <a href="/Duralex/web/index.php">Home</a>
-            <?php if ($user->getRole() == RoleEnum::Gerente || $user->getRole() == RoleEnum::Secretaria) { ?>
+            <?php if ($user->getRole() == RoleEnum::Gerente || $user->getRole() == RoleEnum::Secretaria || $user->getRole() == RoleEnum::Cliente) { ?>
                 <div class="dropdown">
                     <button class="dropbtn">Atención</button>                
                     <div class="dropdown-content">
                         <?php if ($user->getRole() == RoleEnum::Secretaria) { ?>
                             <a href="/Duralex/web/newAttention.php">Agendar Atención</a>
                         <?php } ?>
-                        <a href="/Duralex/web/listLawyer.php">Listar Atenciones</a>
+                        <?php if ($user->getRole() == RoleEnum::Secretaria || $user->getRole() == RoleEnum::Gerente) { ?>
+                            <a href="/Duralex/web/listAttention.php">Listar Atenciones</a>
+                        <?php } ?>
+                        <?php if ($user->getRole() == RoleEnum::Cliente) { ?>
+                            <a href="/Duralex/web/listClientAttention.php">Mis Atenciones</a>
+                        <?php } ?>
                     </div>
                 </div>
             <?php } ?>

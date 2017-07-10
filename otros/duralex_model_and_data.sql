@@ -30,6 +30,22 @@ CREATE TABLE `client` (
 
 /*Data for the table `client` */
 
+/*Table structure for table `specialty` */
+
+DROP TABLE IF EXISTS `specialty`;
+
+CREATE TABLE `specialty` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `specialty` */
+
+insert into `specialty` (`id`,`name`) values (1,'Accidente');
+insert into `specialty` (`id`,`name`) values (2,'Carcel');
+insert into `specialty` (`id`,`name`) values (3,'Familia');
+
 /*Table structure for table `lawyer` */
 
 DROP TABLE IF EXISTS `lawyer`;
@@ -39,9 +55,11 @@ CREATE TABLE `lawyer` (
   `rut` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `hire_date` date NOT NULL,
-  `specialty` varchar(64) NOT NULL,
+  `specialty_id` int(11) NOT NULL,
   `hour_value` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_lawyer` (`specialty_id`),
+  CONSTRAINT `lawyer_ibfk_1` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `lawyer` */
@@ -54,15 +72,32 @@ CREATE TABLE `status` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `status` */
 
-INSERT INTO status(description) VALUES('Agendada');
-INSERT INTO status(description) VALUES('Anulada');
-INSERT INTO status(description) VALUES('Confirmada');
-INSERT INTO status(description) VALUES('Perdida');
-INSERT INTO status(description) VALUES('Realizada');
+insert into `status` (`id`,`description`) values (1,'Agendada');
+insert into `status` (`id`,`description`) values (2,'Anulada');
+insert into `status` (`id`,`description`) values (3,'Confirmada');
+insert into `status` (`id`,`description`) values (4,'Perdida');
+insert into `status` (`id`,`description`) values (5,'Realizada');
+
+/*Table structure for table `user` */
+
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rut` int(11) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `role` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `user` */
+
+insert into `user` (`id`,`rut`,`name`,`password`,`role`) values (1,18467768,'Matthew Scheihing','5f4dcc3b5aa765d61d8327deb882cf99',0);
 
 /*Table structure for table `attention` */
 
@@ -84,18 +119,3 @@ CREATE TABLE `attention` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `attention` */
-
-/*Table structure for table `user` */
-
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rut` int(11) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `role` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
-/*Data for the table `user` */

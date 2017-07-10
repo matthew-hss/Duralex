@@ -33,6 +33,58 @@ class ClientDao {
         return false;
     }
     
+    public static function getClientById($id){
+        $dto = null;
+        try {
+            $pdo = new ClasePdo();
+            $select = $pdo->prepare("SELECT * FROM client WHERE id=?");
+            $select->bindParam(1, $id);
+            $select->execute();
+            $fetch = $select->fetchAll();
+            
+            foreach ($fetch as $x) {
+                $dto = new ClientDto();
+                $dto->setId($x['id']);
+                $dto->setRut($x['rut']);
+                $dto->setName($x['name']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['admission_date']);                
+                $dto->setAdmissionDate($date);
+                $dto->setPersonType($x['person_type']);
+                $dto->setAddress($x['address']);
+                $dto->setPhone($x['phone']);                
+            }
+        } catch (PDOException $ex) {            
+            echo "Error SQL al obtener cliente: ".$ex->getMessage();
+        }
+        return $dto;
+    }
+    
+    public static function getClientByRut($rut){
+        $dto = null;
+        try {
+            $pdo = new ClasePdo();
+            $select = $pdo->prepare("SELECT * FROM client WHERE rut=?");
+            $select->bindParam(1, $rut);
+            $select->execute();
+            $fetch = $select->fetchAll();
+            
+            foreach ($fetch as $x) {
+                $dto = new ClientDto();
+                $dto->setId($x['id']);
+                $dto->setRut($x['rut']);
+                $dto->setName($x['name']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['admission_date']);                
+                $dto->setAdmissionDate($date);
+                $dto->setPersonType($x['person_type']);
+                $dto->setAddress($x['address']);
+                $dto->setPhone($x['phone']);                
+            }
+        } catch (PDOException $ex) {            
+            echo "Error SQL al obtener cliente: ".$ex->getMessage();
+        }
+        return $dto;
+    }
+    
     public static function getClients(){
         $clients = new ArrayObject();
         try {
@@ -46,7 +98,8 @@ class ClientDao {
                 $dto->setId($x['id']);
                 $dto->setRut($x['rut']);
                 $dto->setName($x['name']);
-                $dto->setAdmissionDate($x['admission_date']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['admission_date']);                
+                $dto->setAdmissionDate($date);
                 $dto->setPersonType($x['person_type']);
                 $dto->setAddress($x['address']);
                 $dto->setPhone($x['phone']);
@@ -73,7 +126,8 @@ class ClientDao {
                 $dto->setId($x['id']);
                 $dto->setRut($x['rut']);
                 $dto->setName($x['name']);
-                $dto->setAdmissionDate($x['admission_date']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['admission_date']);                
+                $dto->setAdmissionDate($date);
                 $dto->setPersonType($x['person_type']);
                 $dto->setAddress($x['address']);
                 $dto->setPhone($x['phone']);
@@ -99,7 +153,8 @@ class ClientDao {
                 $dto->setId($x['id']);
                 $dto->setRut($x['rut']);
                 $dto->setName($x['name']);
-                $dto->setAdmissionDate($x['admission_date']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['admission_date']);                
+                $dto->setAdmissionDate($date);
                 $dto->setPersonType($x['person_type']);
                 $dto->setAddress($x['address']);
                 $dto->setPhone($x['phone']);

@@ -26,6 +26,20 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        if (isset($_SESSION['message'])) {
+            $msg = $_SESSION['message'];
+            ?>
+            <div class = "pop-outer">
+                <div class = "pop-inner">
+                    <button class = "close">X</button>
+                    <p><?php echo $msg; ?></p>
+                </div>
+            </div>
+            <?php
+            unset($_SESSION['message']);
+        }
+        ?>
+        <?php
         include_once '../dto/UserDto.php';
         include_once '../dao/UserDao.php';
         include_once '../util/RoleEnum.php';

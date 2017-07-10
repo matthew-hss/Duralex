@@ -4,9 +4,9 @@ include_once '../dto/UserDto.php';
 include_once '../dao/UserDao.php';
 include_once '../util/RoleEnum.php';
 
+session_start();
 $password = $_POST['txtPassword'];
 $passwordConfirm = $_POST['txtPasswordConfirm'];
-session_start();
 
 if ($password == $passwordConfirm) {
     $dto = new UserDto();

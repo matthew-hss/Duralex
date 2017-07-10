@@ -3,6 +3,7 @@
 include_once '../dto/LawyerDto.php';
 include_once '../dao/LawyerDao.php';
 
+session_start();
 $dto = new LawyerDto();
 $dto->setHireDate(new DateTime());
 $dto->setHourValue($_POST['txtHourValue']);
@@ -11,7 +12,6 @@ $dto->setRut($_POST['txtRut']);
 $specialty = new SpecialtyDto();
 $specialty->setId($_POST['ddlSpecialty']);
 $dto->setSpecialty($specialty);
-session_start();
 
 if(LawyerDao::save($dto)){
     echo "<script type=\"text/javascript\"" . ">alert(\"Registro exitoso.\");</script>";

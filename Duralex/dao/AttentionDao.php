@@ -1,6 +1,9 @@
 <?php
 
 include_once '../dto/AttentionDto.php';
+include_once '../dao/ClientDao.php';
+include_once '../dao/StatusDao.php';
+include_once '../dao/LawyerDao.php';
 include_once '../sql/ClasePDO.php';
 
 class AttentionDao {
@@ -39,10 +42,11 @@ class AttentionDao {
             foreach ($fetch as $x) {
                 $dto = new AttentionDto();
                 $dto->setId($x['id']);
-                $dto->setDate($x['date']);
-                $dto->getClient()->setId($x['client_id']);
-                $dto->getLawyer()->setId($x['lawyer_id']);
-                $dto->getStatus()->setId($x['status_id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
                 $attentions->append($dto);
             }
         } catch (PDOException $ex) {
@@ -57,8 +61,8 @@ class AttentionDao {
 
         try {
             $pdo = new clasePDO();
-            $select = $pdo->prepare("select attention.id, attention.date, attention.client_id,attention.lawyer_id,attention.status_id "+
-                    "from attention, lawyer where lawyer.specialty_id = ? group by attention.id;");
+            $select = $pdo->prepare("select attention.id, attention.date, attention.client_id,attention.lawyer_id,attention.status_id "
+                    . "from attention inner join lawyer on attention.lawyer_id = lawyer.id where lawyer.specialty_id = ? group by attention.id;");
             $select->bindParam(1, $id);
             $select->execute();
             $fetch = $select->fetchAll();
@@ -66,10 +70,11 @@ class AttentionDao {
             foreach ($fetch as $x) {
                 $dto = new AttentionDto();
                 $dto->setId($x['id']);
-                $dto->setDate($x['date']);
-                $dto->getClient()->setId($x['client_id']);
-                $dto->getLawyer()->setId($x['lawyer_id']);
-                $dto->getStatus()->setId($x['status_id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
                 $attentions->append($dto);
             }
         } catch (PDOException $ex) {
@@ -81,7 +86,6 @@ class AttentionDao {
 
     public static function getAttentionsByLawyer($id) {
         $attentions = new ArrayObject();
-
         try {
             $pdo = new clasePDO();
             $select = $pdo->prepare("SELECT * FROM attention WHERE lawyer_id=?");
@@ -92,10 +96,11 @@ class AttentionDao {
             foreach ($fetch as $x) {
                 $dto = new AttentionDto();
                 $dto->setId($x['id']);
-                $dto->setDate($x['date']);
-                $dto->getClient()->setId($x['client_id']);
-                $dto->getLawyer()->setId($x['lawyer_id']);
-                $dto->getStatus()->setId($x['status_id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
                 $attentions->append($dto);
             }
         } catch (PDOException $ex) {
@@ -118,10 +123,11 @@ class AttentionDao {
             foreach ($fetch as $x) {
                 $dto = new AttentionDto();
                 $dto->setId($x['id']);
-                $dto->setDate($x['date']);
-                $dto->getClient()->setId($x['client_id']);
-                $dto->getLawyer()->setId($x['lawyer_id']);
-                $dto->getStatus()->setId($x['status_id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
                 $attentions->append($dto);
             }
         } catch (PDOException $ex) {
@@ -144,10 +150,11 @@ class AttentionDao {
             foreach ($fetch as $x) {
                 $dto = new AttentionDto();
                 $dto->setId($x['id']);
-                $dto->setDate($x['date']);
-                $dto->getClient()->setId($x['client_id']);
-                $dto->getLawyer()->setId($x['lawyer_id']);
-                $dto->getStatus()->setId($x['status_id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
                 $attentions->append($dto);
             }
         } catch (PDOException $ex) {
@@ -171,10 +178,11 @@ class AttentionDao {
             foreach ($fetch as $x) {
                 $dto = new AttentionDto();
                 $dto->setId($x['id']);
-                $dto->setDate($x['date']);
-                $dto->getClient()->setId($x['client_id']);
-                $dto->getLawyer()->setId($x['lawyer_id']);
-                $dto->getStatus()->setId($x['status_id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
                 $attentions->append($dto);
             }
         } catch (PDOException $ex) {
@@ -184,23 +192,85 @@ class AttentionDao {
         return $attentions;
     }
 
-    public static function getAttentionsByClient($id) {
+    public static function getAttentionsByClient($rut) {
         $attentions = new ArrayObject();
 
         try {
             $pdo = new clasePDO();
-            $select = $pdo->prepare("SELECT * FROM attention WHERE client_id = ?");
-            $select->bindParam(1, $id);
+            $select = $pdo->prepare("select attention.id, attention.date, attention.client_id,attention.lawyer_id,attention.status_id "
+                    . "from attention inner join client on attention.client_id=client.id where client.rut=? group by attention.id;");
+            $select->bindParam(1, $rut);
             $select->execute();
             $fetch = $select->fetchAll();
 
             foreach ($fetch as $x) {
                 $dto = new AttentionDto();
                 $dto->setId($x['id']);
-                $dto->setDate($x['date']);
-                $dto->getClient()->setId($x['client_id']);
-                $dto->getLawyer()->setId($x['lawyer_id']);
-                $dto->getStatus()->setId($x['status_id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
+                $attentions->append($dto);
+            }
+        } catch (PDOException $ex) {
+            $attentions = new ArrayObject();
+            echo "Error SQL al obtener atenciones: " . $ex->getMessage();
+        }
+        return $attentions;
+    }
+    
+    public static function getAttentionsByClientAndLawyer($rut, $lawyer) {
+        $attentions = new ArrayObject();
+
+        try {
+            $pdo = new clasePDO();
+            $select = $pdo->prepare("select attention.id, attention.date, attention.client_id,attention.lawyer_id,attention.status_id "
+                    . "from attention inner join client on attention.client_id=client.id inner join lawyer on attention.lawyer_id=lawyer.id "
+                    . "where client.rut=? and lawyer.id=? group by attention.id;");
+            $select->bindParam(1, $rut);
+            $select->bindParam(2, $lawyer);
+            $select->execute();
+            $fetch = $select->fetchAll();
+
+            foreach ($fetch as $x) {
+                $dto = new AttentionDto();
+                $dto->setId($x['id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
+                $attentions->append($dto);
+            }
+        } catch (PDOException $ex) {
+            $attentions = new ArrayObject();
+            echo "Error SQL al obtener atenciones: " . $ex->getMessage();
+        }
+        return $attentions;
+    }
+    
+    public static function getAttentionsByClientAndStatus($rut, $status) {
+        $attentions = new ArrayObject();
+
+        try {
+            $pdo = new clasePDO();
+            $select = $pdo->prepare("select attention.id, attention.date, attention.client_id,attention.lawyer_id,attention.status_id "
+                    . "from attention inner join client on attention.client_id=client.id inner join status on attention.status_id=status.id "
+                    . "where client.rut=? and status.id=? group by attention.id;");
+            $select->bindParam(1, $rut);
+            $select->bindParam(2, $status);
+            $select->execute();
+            $fetch = $select->fetchAll();
+
+            foreach ($fetch as $x) {
+                $dto = new AttentionDto();
+                $dto->setId($x['id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
                 $attentions->append($dto);
             }
         } catch (PDOException $ex) {
