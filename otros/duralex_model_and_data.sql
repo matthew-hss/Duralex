@@ -93,11 +93,13 @@ CREATE TABLE `user` (
   `password` varchar(256) NOT NULL,
   `role` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `user` */
 
-insert into `user` (`id`,`rut`,`name`,`password`,`role`) values (1,18467768,'Matthew Scheihing','5f4dcc3b5aa765d61d8327deb882cf99',0);
+insert into `user` (`id`,`rut`,`name`,`password`,`role`) values (1,12111111,'Pablo Vargas','5f4dcc3b5aa765d61d8327deb882cf99',0);
+insert into `user` (`id`,`rut`,`name`,`password`,`role`) values (2,11111111,'Alexis Veas','5f4dcc3b5aa765d61d8327deb882cf99',2);
+insert into `user` (`id`,`rut`,`name`,`password`,`role`) values (3,18467768,'Carol Wilson','5f4dcc3b5aa765d61d8327deb882cf99',3);
 
 /*Table structure for table `attention` */
 
