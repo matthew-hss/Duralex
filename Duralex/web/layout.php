@@ -55,6 +55,7 @@ and open the template in the editor.
                     <button class="dropbtn">Atención</button>                
                     <div class="dropdown-content">
                         <?php if ($user->getRole() == RoleEnum::Secretaria) { ?>
+                            <a href="/Duralex/web/updateAttention.php">Actualizar Estado de Atención</a>
                             <a href="/Duralex/web/newAttention.php">Agendar Atención</a>
                         <?php } ?>
                         <?php if ($user->getRole() == RoleEnum::Secretaria || $user->getRole() == RoleEnum::Gerente) { ?>

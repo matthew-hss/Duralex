@@ -31,6 +31,30 @@ class AttentionDao {
         return false;
     }
 
+    public static function getAttentionById($id) {
+        $dto = null;
+        try {
+            $pdo = new clasePDO();
+            $select = $pdo->prepare("SELECT * FROM attention WHERE id=?");
+            $select->bindParam(1, $id);
+            $select->execute();
+            $fetch = $select->fetchAll();
+
+            foreach ($fetch as $x) {
+                $dto = new AttentionDto();
+                $dto->setId($x['id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));                
+            }
+        } catch (PDOException $ex) {            
+            echo "Error SQL al obtener atención: " . $ex->getMessage();
+        }
+        return $dto;
+    }
+    
     public static function getAttentions() {
         $attentions = new ArrayObject();
         try {
@@ -279,6 +303,25 @@ class AttentionDao {
             echo "Error SQL al obtener atenciones: " . $ex->getMessage();
         }
         return $attentions;
+    }
+    
+    public static function update($dto){
+        try {
+            $pdo = new clasePDO();
+            $id = $dto->getId();
+            $status = $dto->getStatus()->getId();
+            $update = $pdo->prepare("UPDATE attention SET status_id=? WHERE id=?");
+            $update->bindParam(1, $status);
+            $update->bindParam(2, $id);
+            $update->execute();
+            
+            if($update->rowCount()>0){
+                return true;
+            }
+        } catch (PDOException $ex) {
+            echo "Error SQL al actualizar atención: ".$ex->getMessage();
+        }
+        return false;
     }
 
 }

@@ -92,7 +92,5 @@ and open the template in the editor.
                 <?php } ?>
             </tbody>
         </table>
-
-
     </body>
 </html>

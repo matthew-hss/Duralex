@@ -100,6 +100,7 @@ and open the template in the editor.
         <table border="0" class="width">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Rut Cliente</th>
                     <th>Cliente</th>
                     <th>Abogado</th>
@@ -110,6 +111,7 @@ and open the template in the editor.
             <tbody>
                 <?php foreach ($attentions as $x) { ?>
                     <tr>
+                        <td><?php echo $x->getId(); ?></td>
                         <td><?php echo RutUtils::formatRut($x->getClient()->getRut()); ?></td>
                         <td><?php echo $x->getClient()->getName(); ?></td>
                         <td><?php echo $x->getLawyer()->getName(); ?></td>
