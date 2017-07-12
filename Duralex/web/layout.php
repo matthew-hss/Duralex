@@ -47,7 +47,7 @@ and open the template in the editor.
         }
         ?>
     </head>
-    <body>
+    <body background="/Duralex/web/images/pattern.jpg">
         <div class="container">
             <a href="/Duralex/web/index.php">Home</a>
             <?php if ($user->getRole() == RoleEnum::Gerente || $user->getRole() == RoleEnum::Secretaria || $user->getRole() == RoleEnum::Cliente) { ?>
@@ -117,5 +117,11 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+
+        <footer>
+            <div style="text-align: center;">
+                Matthew Scheihing © Todos los derechos reservados.
+            </div>
+        </footer>
     </body>
 </html>

@@ -56,19 +56,19 @@ and open the template in the editor.
         }
         ?>
         <?php
-        
-
         $statuses = StatusDao::getStatuses();
         $lawyers = LawyerDao::getLawyers();
         $clients = ClientDao::getClients();
         ?>
+        <h3>DURALEX :: Agregar Atención</h3>
         <form action="/Duralex/webFiles/newAttention.php" method="POST">
             <table border="0">
                 <tbody>
                     <tr>
                         <td>Abogado</td>
                         <td>
-                            <select name="ddlLawyer">
+                            <select name="ddlLawyer" required="true">
+                                <option value="" >Seleccione Abogado</option>
                                 <?php foreach ($lawyers as $x) { ?>
                                     <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
                                 <?php } ?>
@@ -78,9 +78,10 @@ and open the template in the editor.
                     <tr>
                         <td>Cliente</td>
                         <td>
-                            <select name="ddlClient">
+                            <select name="ddlClient" required="true">
+                                <option value="" >Seleccione Cliente</option>
                                 <?php foreach ($clients as $x) { ?>
-                                <option value="<?php echo $x->getId(); ?>"><?php echo RutUtils::formatRut($x->getRut()); ?></option>
+                                    <option value="<?php echo $x->getId(); ?>"><?php echo RutUtils::formatRut($x->getRut()); ?></option>
                                 <?php } ?>
                             </select>
                         </td>
@@ -92,7 +93,8 @@ and open the template in the editor.
                     <tr>
                         <td>Estado</td>
                         <td>
-                            <select name="ddlStatus">
+                            <select name="ddlStatus" required="true">
+                                <option value="" >Seleccione Estado</option>
                                 <?php foreach ($statuses as $x) { ?>
                                     <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
                                 <?php } ?>
@@ -101,7 +103,9 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="AGREGAR" name="btnAdd" />
+            <div class="buttonHolder">
+                <input type="submit" value="AGREGAR" name="btnAdd" />
+            </div>
         </form>
     </body>
 </html>

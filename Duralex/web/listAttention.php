@@ -57,45 +57,27 @@ and open the template in the editor.
         }
         ?>
         <form action="/Duralex/webFiles/listAttentionByClient.php" method="POST">
-            <table border="0">                
-                <tbody>
-                    <tr>
-                        <td>Rut Cliente</td>
-                        <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
-                    </tr>
-                </tbody>
-            </table>            
+            <h3>Listar Atenciones</h3>
+            <input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)" placeholder="RUT CLIENTE" class="filter"/>
+            <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>     
         </form>
         <form action="/Duralex/webFiles/listAttentionByLawyer.php" method="POST">
-            <table border="0">                
-                <tbody>
-                    <tr>
-                        <td>Abogado</td>
-                        <td><select name="ddlLawyer">
-                                <?php foreach ($lawyers as $x) { ?>                                        
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
-                                <?php } ?>
-                            </select></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
-                    </tr>
-                </tbody>
-            </table>            
+            <select name="ddlLawyer" required="true">
+                <option value="" >Seleccione Abogado</option>
+                <?php foreach ($lawyers as $x) { ?>                                        
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>
         </form>
         <form action="/Duralex/webFiles/listAttentionByStatus.php" method="POST">
-            <table border="0">                
-                <tbody>
-                    <tr>
-                        <td>Estado</td>
-                        <td><select name="ddlStatus">
-                                <?php foreach ($statuses as $x) { ?>                                        
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
-                                <?php } ?>
-                            </select></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
-                    </tr>
-                </tbody>
-            </table>            
+            <select name="ddlStatus" required="true">
+                <option value="">Seleccione Estado</option>
+                <?php foreach ($statuses as $x) { ?>                                        
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>        
         </form>
         <table border="0" class="width">
             <thead>

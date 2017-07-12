@@ -39,7 +39,8 @@ and open the template in the editor.
             unset($_SESSION['message']);
         }
         ?>
-        <form action="/Duralex/webfiles/newUser.php" method="POST">
+        <h3>DURALEX :: Agregar Usuario</h3>
+        <form action="/Duralex/webfiles/newUser.php" method="POST">            
             <table border="0">
                 <tbody>
                     <tr>
@@ -48,19 +49,20 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <td>Nombre</td>
-                        <td><input type="text" name="txtName" value="" /></td>
+                        <td><input type="text" name="txtName" value="" required="true"/></td>
                     </tr>
                     <tr>
                         <td>Password</td>
-                        <td><input type="password" name="txtPassword" value="" /></td>
+                        <td><input type="password" name="txtPassword" value="" required="true"/></td>
                     </tr>
                     <tr>
                         <td>Confirmar Password</td>
-                        <td><input type="password" name="txtPasswordConfirm" value="" /></td>
+                        <td><input type="password" name="txtPasswordConfirm" value="" required="true"/></td>
                     </tr>
                     <tr>
                         <td>Rol</td>
-                        <td><select name="ddlRole">
+                        <td><select name="ddlRole" required="true">
+                                <option value="" >Seleccione Rol</option>
                                 <option value="0">Administrador</option>
                                 <option value="1">Cliente</option>
                                 <option value="2">Gerente</option>                                
@@ -69,7 +71,9 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="AGREGAR" name="btnAdd" />
+            <div class="buttonHolder">
+                <input type="submit" value="AGREGAR" name="btnAdd" />
+            </div>
         </form>
     </body>
 </html>

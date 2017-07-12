@@ -222,9 +222,10 @@ class AttentionDao {
 
         try {
             $pdo = new clasePDO();
+            $rutNumber = RutUtils::getRutNumber($rut);
             $select = $pdo->prepare("select attention.id, attention.date, attention.client_id,attention.lawyer_id,attention.status_id "
                     . "from attention inner join client on attention.client_id=client.id where client.rut=? group by attention.id;");
-            $select->bindParam(1, $rut);
+            $select->bindParam(1, $rutNumber);
             $select->execute();
             $fetch = $select->fetchAll();
 

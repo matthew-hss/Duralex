@@ -72,87 +72,56 @@ and open the template in the editor.
             $attentions = AttentionDao::getAttentions();
         }
         ?>
+        <h3>DURALEX :: Estadísticas de Atenciones</h3>
         <form action="/Duralex/webFiles/statisticsAttentionByDates.php" method="POST">
-            <table border="0">
-                <tbody>
-                    <tr>
-                        <td>Desde</td>
-                        <td><input id="from" type="text" name="txtFrom" value="" required="true"/></td>
-                        <td>Hasta</td>
-                        <td><input id="to" type="text" name="txtTo" value="" required="true"/></td>                        
-                        <td><input type="submit" value="CONSULTAR" name="btnRequest" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <input id="from" type="text" name="txtFrom" value="" required="true" placeholder="Desde"/>
+            <input id="to" type="text" name="txtTo" value="" required="true" placeholder="Hasta"/>
+            <input type="submit" value="CONSULTAR" name="btnRequest" class="filter"/>
         </form>
         <form action="/Duralex/webFiles/statisticsAttentionByMonth.php" method="POST">
-            <table border="0">
-                <tbody>
-                    <tr>
-                        <td>Mes</td>
-                        <td><select name="ddlMonth">
-                                <option value="1">Enero</option>
-                                <option value="2">Febrero</option>
-                                <option value="3">Marzo</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Mayo</option>
-                                <option value="6">Junio</option>
-                                <option value="7">Julio</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Septiembre</option>
-                                <option value="10">Octubre</option>
-                                <option value="11">Noviembre</option>
-                                <option value="12">Diciembre</option>
-                            </select></td>
-                        <td><input type="submit" value="CONSULTAR" name="btnRequest" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <select name="ddlMonth" required="true">
+                <option value="">Seleccione un mes</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+            <input type="submit" value="CONSULTAR" name="btnRequest" class="filter"/>            
         </form>
         <form action="/Duralex/webFiles/statisticsAttentionBySpecialty.php" method="POST">
-            <table border="0">
-                <tbody>
-                    <tr>
-                        <td>Especialidad</td>
-                        <td><select name="ddlSpecialty">
-                                <?php foreach ($specialties as $x) { ?>
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
-                                <?php } ?>
-                            </select></td>
-                        <td><input type="submit" value="CONSULTAR" name="btnRequest" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <select name="ddlSpecialty" required="true">
+                <option value="">Seleccione Especialidad</option>
+                <?php foreach ($specialties as $x) { ?>
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="CONSULTAR" name="btnRequest" class="filter"/>
         </form>
         <form action="/Duralex/webFiles/statisticsAttentionByLawyer.php" method="POST">
-            <table border="0">
-                <tbody>
-                    <tr>
-                        <td>Abogado</td>
-                        <td><select name="ddlLawyer">
-                                <?php foreach ($lawyers as $x) { ?>
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
-                                <?php } ?>
-                            </select></td>
-                        <td><input type="submit" value="CONSULTAR" name="btnRequest" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <select name="ddlLawyer" required="true">
+                <option value="">Seleccione Abogado</option>
+                <?php foreach ($lawyers as $x) { ?>
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="CONSULTAR" name="btnRequest" class="filter"/>            
         </form>
         <form action="/Duralex/webFiles/statisticsAttentionByStatus.php" method="POST">
-            <table border="0">
-                <tbody>
-                    <tr>
-                        <td>Estado</td>
-                        <td><select name="ddlStatus">
-                                <?php foreach ($statuses as $x) { ?>
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
-                                <?php } ?>
-                            </select></td>
-                        <td><input type="submit" value="CONSULTAR" name="btnRequest" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <select name="ddlStatus" required="true">
+                <option value="">Seleccione Estado</option>
+                <?php foreach ($statuses as $x) { ?>
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="CONSULTAR" name="btnRequest" class="filter"/>            
         </form>
         <table border="0">
             <tbody>

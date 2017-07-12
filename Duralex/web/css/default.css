@@ -21,7 +21,7 @@ h1 {
     font-weight: bold;
     margin: 0px;
     padding: 0px 10px;
-    color: #ffffff;
+    color: #D20005;
 }
 
 h3 {
@@ -47,7 +47,7 @@ a:link, a:visited {
     text-decoration: none;
 }
 
-/*input, button{
+input, button{
     font-size: 18px !important;
     display: block;
     width: 300px;
@@ -55,7 +55,7 @@ a:link, a:visited {
     height:40px;
     padding: 5px 10px;
     margin-bottom: 5px !important;
-}*/
+}
 
 input:focus, select:focus, button{
     outline:none;
@@ -83,68 +83,6 @@ select {
     height: 40px !important;
     font-size: 16px;
 }
-
-/*******header*********/
-.container {
-    overflow: hidden;
-    /*background-color: #333;*/
-    background-color: #B33D26;
-    font-family: Arial;
-}
-
-.container a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.dropdown {
-    float: left;
-    overflow: hidden;
-}
-
-.dropdown .dropbtn {
-    font-size: 16px;    
-    border: none;
-    outline: none;
-    color: white;
-    padding: 14px 16px;
-    background-color: inherit;
-}
-
-.container a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
 
 /*Custom Radio Buttons and Checkboxes using Font Awesome*/
 
@@ -177,39 +115,6 @@ input[type="checkbox"] + label:before {
 }
 input[type="checkbox"]:checked + label:before {
     content: "\f046"; /* Checkbox Checked */
-}
-input[type=submit] {
-    /*    width: 15em;
-        height: 2em;*/
-    font-size:24px;
-    width: 11.2em;
-    height: 2em;
-}
-input[type=submit].filter {
-    /*    width: 15em;
-        height: 2em;*/
-    font-size:20px;
-    width: 11.2em;
-    height: 2em;
-}
-input[type=text] {
-    font-size:24px;
-    width: 11.2em;
-    height: 2em;    
-}
-input[type=text].filter {
-    font-size:20px;
-    width: 11.2em;
-    height: 2em;    
-}
-input[type=password] {
-    font-size:24px;
-    width: 11.2em;
-    height: 2em; 
-}
-select {    
-    width: 16.7em;
-    height: 2em;     
 }
 
 .wrapper{
@@ -249,34 +154,6 @@ form input[type="submit"]:hover, form button:hover{
     list-style: none;
     padding-left: 0;
 }
-
-/************table************/
-
-/*html, body {
-    width: 100%;
-}
-
-table.width {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 0 auto;    
-}
-
-table.center{
-    margin: 0 auto;
-}
-
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even){background-color: #f2f2f2}
-
-th {
-    background-color: #333;
-    color: white;
-}*/
 
 table {
     border-collapse: collapse;
@@ -329,10 +206,116 @@ th {
     color: white;
 }
 
-/****inputs and buttons****/
+/*********** DROPDOWN MENU ********/
 
-.buttonHolder{ 
-    text-align: center; 
+nav.dropdownmenu{
+    width: 100%;
+    background: transparent;
+    position: relative;
+}
+
+nav.dropdownmenu #logo{
+    float: none;
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+nav.dropdownmenu #logo img{
+    max-width: 100%;
+}
+
+nav.dropdownmenu #menu{
+    width: 100%;
+    height: 100px;
+    padding-left: 250px;
+    padding-top: 25px;
+}
+
+.dropdownmenu ul, .dropdownmenu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.dropdownmenu li {
+    float: left;
+    position: relative;
+    width:auto;
+}
+.dropdownmenu ul a {
+    background: transparent;
+    width: 200px;
+    height:40px;
+    padding-top:2px;
+    font-family: Raleway,'Open Sans', Helvetica,  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    font-size: 18px;
+    font-weight: 300;
+    color: #FFFFFF;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: all .25s ease;
+    -moz-transition: all .25s ease;
+    -ms-transition: all .25s ease;
+    -o-transition: all .25s ease;
+    transition: all .25s ease;
+}
+.dropdownmenu li:hover a {
+    font-weight: 300;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-bottom: 2px solid #B33D26;
+}
+.dropdownmenu li:hover i {
+    color: #B33D26;
+}
+.dropdownmenu ul:last-child {
+    float: right;
+}
+.dropdownmenu ul:last-child li{
+    padding-right: 20px;
+}
+.dropdownmenu ul:last-child a{
+    width: auto;
+    min-width: 200px;
+    max-width: 400px;
+}
+.submenu {
+    right: 0;
+    opacity: 0;
+    position: absolute;
+    top: 35px;
+    visibility: hidden;
+    z-index: 1;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+li:hover ul.submenu {
+    opacity: 1;
+    top: 40px;	/* adjust this as per top nav padding top & bottom comes */
+    visibility: visible;
+}
+.submenu li {
+    float: none;
+    width: 100%;
+    height: 30px;
+}
+.submenu a {
+    width: 200px;
+    height: 32px !important;
+    padding-top: 4px !important;
+    color: #FFFFFF !important;
+}
+.submenu a:hover {
+    background: #B33D26;
+}
+.submenu a:hover i {
+    color: #ffffff;
 }
 
 /*********** LOGIN ********/
@@ -407,6 +390,7 @@ th {
     color: #000;
 }
 
+
 /*********** STYCKY FOOTER ********/
 
 html {
@@ -427,53 +411,3 @@ footer {
     height: 60px;
     width: 100%;
 }
-
-/*********alert message pop up*********/
-
-.pop-outer{
-    background-color: rgba(0, 0, 0, 0.5);
-    /*background-color: white;*/
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-.pop-inner{
-    background-color: #323232;
-    /*background-color: gray;*/
-    width: 300px;
-    height: 100px;
-    padding: 25px;
-    margin: 15% auto;
-    opacity: 0.8;
-    border-style: solid;
-    border-width: 5px;
-    /*border-color: #7BAAF7;*/
-    /*border-color: #333;*/
-    border-color: #B33D26;
-    border-radius: 20px;    
-    position: relative;
-}
-
-button.close {
-    position: absolute;
-    top: 14px;
-    right: 15px;
-}
-
-/*#div1, #div2, #div3{
-    width: 300px;
-    height: 600px;
-    border: 1px solid red;
-    margin-right: 10px;
-    float: left;  
-    width: 50%;
-    margin: 0 auto;
-}
-
-.child_div1 {
-    float: left;
-    margin-right: 5px;
-}*/

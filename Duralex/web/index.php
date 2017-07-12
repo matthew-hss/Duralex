@@ -24,6 +24,7 @@ and open the template in the editor.
     </head>
     <body>
         <div>
+            <br><br>
             <h1>Bienvenido <?php echo $_SESSION['user']->getName(); ?>!</h1>
         </div>
     </body>

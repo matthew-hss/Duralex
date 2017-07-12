@@ -40,6 +40,7 @@ and open the template in the editor.
             unset($_SESSION['message']);
         }
         ?>
+        <h3>DURALEX :: Agregar Cliente</h3>
         <form action="/Duralex/webfiles/newClient.php" method="POST">
             <table border="0">
                 <tbody>
@@ -53,7 +54,8 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <td>Tipo de persona</td>
-                        <td><select name="ddlPersonType">
+                        <td><select name="ddlPersonType" required="true">
+                                <option value="" >Seleccione Tipo Persona</option>
                                 <option value="J">Jurídica</option>
                                 <option value="N">Natural</option>
                             </select></td>
@@ -64,11 +66,13 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <td>Teléfono</td>
-                        <td><input type="text" name="txtPhone" value="" required="true"/></td>
+                        <td><input id="phone" type="text" name="txtPhone" value="" required="true" /></td>
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="AGREGAR" name="btnAdd" />
+            <div class="buttonHolder">
+                <input type="submit" value="AGREGAR" name="btnAdd" />
+            </div>
         </form>
     </body>
 </html>

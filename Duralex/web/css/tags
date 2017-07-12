@@ -1,0 +1,149 @@
+As skaffman suggested, JSP 2.0 Tag Files are the bee's knees.
+
+Let's take your simple example.
+
+Put the following in WEB-INF/tags/wrapper.tag
+
+    <%@tag description="Simple Wrapper Tag" pageEncoding="UTF-8"%>
+    <html><body>
+      <jsp:doBody/>
+    </body></html>
+
+
+Now in your example.jsp page:
+
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+    <t:wrapper>
+        <h1>Welcome</h1>
+    </t:wrapper>
+
+
+That does exactly what you think it does.
+
+So, lets expand upon that to something a bit more general. WEB-INF/tags/genericpage.tag
+
+    <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
+    <%@attribute name="header" fragment="true" %>
+    <%@attribute name="footer" fragment="true" %>
+    <html>
+      <body>
+        <div id="pageheader">
+          <jsp:invoke fragment="header"/>
+        </div>
+        <div id="body">
+          <jsp:doBody/>
+        </div>
+        <div id="pagefooter">
+          <jsp:invoke fragment="footer"/>
+        </div>
+      </body>
+    </html>
+
+To use this:
+
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+    <t:genericpage>
+        <jsp:attribute name="header">
+          <h1>Welcome</h1>
+        </jsp:attribute>
+        <jsp:attribute name="footer">
+          <p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>
+        </jsp:attribute>
+        <jsp:body>
+            <p>Hi I'm the heart of the message</p>
+        </jsp:body>
+    </t:genericpage>
+
+
+What does that buy you? A lot really, but it gets even better...
+
+WEB-INF/tags/userpage.tag
+
+    <%@tag description="User Page template" pageEncoding="UTF-8"%>
+    <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+    <%@attribute name="userName" required="true"%>
+
+    <t:genericpage>
+        <jsp:attribute name="header">
+          <h1>Welcome ${userName}</h1>
+        </jsp:attribute>
+        <jsp:attribute name="footer">
+          <p id="copyright">Copyright 1927, Future Bits When There Be Bits Inc.</p>
+        </jsp:attribute>
+        <jsp:body>
+            <jsp:doBody/>
+        </jsp:body>
+    </t:genericpage>
+
+
+To use this: (assume we have a user variable in the request)
+
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+    <t:userpage userName="${user.fullName}">
+      <p>
+        First Name: ${user.firstName} <br/>
+        Last Name: ${user.lastName} <br/>
+        Phone: ${user.phone}<br/>
+      </p>
+    </t:userpage>
+
+
+But it turns you like to use that user detail block in other places. So, we'll refactor it. WEB-INF/tags/userdetail.tag
+
+    <%@tag description="User Page template" pageEncoding="UTF-8"%>
+    <%@tag import="com.example.User" %>
+    <%@attribute name="user" required="true" type="com.example.User"%>
+
+    First Name: ${user.firstName} <br/>
+    Last Name: ${user.lastName} <br/>
+    Phone: ${user.phone}<br/>
+
+
+Now the previous example becomes:
+
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+    <t:userpage userName="${user.fullName}">
+      <p>
+        <t:userdetail user="${user}"/>
+      </p>
+    </t:userpage>
+
+
+
+The beauty of JSP Tag files is that it lets you basically tag generic markup and then refactor it to your heart's content.
+
+JSP Tag Files have pretty much usurped things like Tiles etc., at least for me. I find them much easier to use as the only structure is what you give it, nothing preconceived. Plus you can use JSP tag files for other things (like the user detail fragment above).
+
+Here's an example that is similar to DisplayTag that I've done, but this is all done with Tag Files (and the Stripes framework, that's the s: tags..). This results in a table of rows, alternating colors, page navigation, etc:
+
+<t:table items="${actionBean.customerList}" var="obj" css_class="display">
+  <t:col css_class="checkboxcol">
+    <s:checkbox name="customerIds" value="${obj.customerId}"
+                onclick="handleCheckboxRangeSelection(this, event);"/>
+  </t:col>
+  <t:col name="customerId" title="ID"/>
+  <t:col name="firstName" title="First Name"/>
+  <t:col name="lastName" title="Last Name"/>
+  <t:col>
+    <s:link href="/Customer.action" event="preEdit">
+      Edit
+      <s:param name="customer.customerId" value="${obj.customerId}"/>
+      <s:param name="page" value="${actionBean.page}"/>
+    </s:link>
+  </t:col>
+</t:table>
+
+
+Of course the tags work with the JSTL tags (like c:if, etc.). The only thing you can't do within the body of a tag file tag is add Java scriptlet code, but this isn't as much of a limitation as you might think. If I need scriptlet stuff, I just put the logic in to a tag and drop the tag in. Easy.
+
+So, tag files can be pretty much whatever you want them to be. At the most basic level, it's simple cut and paste refactoring. Grab a chunk of layout, cut it out, do some simple parameterization, and replace it with a tag invocation.
+
+At a higher level, you can do sophisticated things like this table tag I have here.

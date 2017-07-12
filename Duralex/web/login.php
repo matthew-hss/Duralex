@@ -16,7 +16,10 @@ session_destroy();
         <link rel="stylesheet" href="/Duralex/web/css/layout.css" type="text/css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script src="/Duralex/web/js/rutValidator.js"></script>
+        <script src="/Duralex/web/js/rutValidator.js"></script>        
+        <link rel="stylesheet" href="/Duralex/web/css/bootstrap.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
             $(document).ready(function () {
                 $(".open").click(function () {
@@ -27,6 +30,36 @@ session_destroy();
                 });
             });
         </script>
+    </head>
+    <body>
+
+        <div class="col-sm-6 col-md-5 form-container">
+            <h3>INICIAR SESIÓN</h3>
+            <div class="img-login"><i class="fa fa-user-circle" aria-hidden="true"></i></div>
+            <form id="form-login" class="formulario1" action="/Duralex/webFiles/login.php" method="POST">
+                <div class="buttonHolder">
+                    <input id="login-rut" type="text" name="txtRut" value="" placeholder="RUT" required oninput="checkRut(this)"/><br><br>
+                    <input id="login-pass" type="password" name="txtPassword" value="" placeholder="Contraseña" /><br><br>
+                    <input type="submit" value="Ingresar" name="btnLogin" />
+                </div>
+                <?php
+                if (isset($_SESSION['message'])) {
+                    $msg = $_SESSION['message'];
+                    ?>
+                    <div class="msgbox">
+                        <?php echo $msg ?>
+                    </div>
+                    <?php
+                    unset($_SESSION['message']);
+                }
+                ?>
+            </form>
+            <div style="margin:10px 0;">
+                <div class="enlace">
+                    <a href="/Duralex/web/signup.php"><div><i class="fa fa-user-plus" aria-hidden="true"></i> Regístrate</div></a>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript">
             $(function () {
                 $("#login-rut").focusout(function () {
@@ -40,39 +73,11 @@ session_destroy();
                 });
             });
         </script>
-    </head>
-    <body>
-        <?php
-        if (isset($_SESSION['message'])) {
-            $msg = $_SESSION['message'];
-            ?>
-            <div class = "pop-outer">
-                <div class = "pop-inner">
-                    <button class = "close">X</button>
-                    <p><?php echo $msg; ?></p>
-                </div>
+
+        <footer>
+            <div style="text-align: center;">
+                Matthew Scheihing © Todos los derechos reservados.
             </div>
-            <?php
-            unset($_SESSION['message']);
-        }
-        ?>
-        <form action="/Duralex/webfiles/login.php" method="POST">
-            <table border="0" class="center">
-                <tbody>
-                    <tr>
-                        <td>RUT</td>
-                        <td><input id="login-rut" type="text" name="txtRut" value="" required oninput="checkRut(this)" /></td>
-                    </tr>
-                    <tr>
-                        <td>Password</td>
-                        <td><input type="password" name="txtPassword" value="" required /></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="buttonHolder">
-                <input type="submit" value="INGRESAR" name="btnLogin" /><br>
-                <a href="/Duralex/web/signup.php">Registrarse</a>
-            </div>
-        </form>
+        </footer>
     </body>
 </html>

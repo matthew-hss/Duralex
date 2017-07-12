@@ -57,37 +57,26 @@ and open the template in the editor.
         }
         ?>
         <form action="/Duralex/webFiles/statisticsClientByMonthAmount.php" method="POST">
-            <table border="0">
-                <tbody>
-                    <tr>
-                        <td>Meses de antiguedad</td>
-                        <td><select name="ddlMonth">
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>                                
-                            </select></td>                       
-                        <td><input type="submit" value="CONSULTAR" name="btnRequest" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <select name="ddlMonth" required="true">
+                <option value="">Seleccione meses antiguedad</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>                                
+            </select>
+            <input type="submit" value="CONSULTAR" name="btnRequest" class="filter" />
         </form>
         <form action="/Duralex/webFiles/statisticsClientByPersonType.php" method="POST">
-            <table border="0">
-                <tbody>
-                    <tr>
-                        <td>Tipo de persona</td>
-                        <td><select name="ddlPersonType">
-                                <option value="J">Natural</option>
-                                <option value="N">Jurídica</option>                                
-                            </select></td>
-                        <td><input type="submit" value="CONSULTAR" name="btnRequest" /></td>
-                    </tr>
-                </tbody>
-            </table>
+            <select name="ddlPersonType" required="true">
+                <option value="">Seleccione Tipo Persona</option>
+                <option value="J">Natural</option>
+                <option value="N">Jurídica</option>                                
+            </select>
+            <input type="submit" value="CONSULTAR" name="btnRequest" class="filter"/>
+
         </form>
         <table border="0">
             <tbody>
@@ -109,9 +98,11 @@ and open the template in the editor.
                 </tr>
             </thead>
             <tbody>
-                <?php   $aux=0;
-                foreach ($clients as $x) { ?>
-                    
+                <?php
+                $aux = 0;
+                foreach ($clients as $x) {
+                    ?>
+
                     <tr>
                         <td><?php echo RutUtils::formatRut($x->getRut()); ?></td>
                         <td><?php echo $x->getName(); ?></td>
@@ -125,7 +116,10 @@ and open the template in the editor.
                             }
                             ?></td>                            
                         <td><?php echo $x->getPhone(); ?></td>
-                        <td><?php echo $attentions[$aux]; $aux++; ?></td>
+                        <td><?php
+                            echo $attentions[$aux];
+                            $aux++;
+                            ?></td>
                     <?php } ?>
 
                 </tr>

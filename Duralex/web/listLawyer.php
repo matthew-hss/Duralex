@@ -14,6 +14,7 @@ and open the template in the editor.
         include_once '../util/RutUtils.php';
         include_once '../dto/LawyerDto.php';
         include_once '../dao/LawyerDao.php';
+        include_once '../dao/SpecialtyDao.php';
         session_start();
         $user = null;
         if (isset($_SESSION['user'])) {
@@ -43,25 +44,32 @@ and open the template in the editor.
         }
         ?>
         <?php
+        $specialties = SpecialtyDao::getSpecialties();
         if (isset($_SESSION['lawyer'])) {
             $lawyers = new ArrayObject();
             $lawyer = $_SESSION['lawyer'];
             unset($_SESSION['lawyer']);
             $lawyers->append($lawyer);
-        } else {
+        } elseif(isset($_SESSION['lawyersBySpecialty'])){
+            $lawyers = $_SESSION['lawyersBySpecialty'];
+            unset($_SESSION['lawyersBySpecialty']);
+        }else {
             $lawyers = LawyerDao::getLawyers();
         }
         ?>       
         <form action="/Duralex/webFiles/listLawyerByRut.php" method="POST">
-            <table border="0">                
-                <tbody>
-                    <tr>
-                        <td>Rut Abogado</td>
-                        <td><input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)"/></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
-                    </tr>
-                </tbody>
-            </table>            
+            <h3>Listar abogados</h3>
+            <input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)" placeholder="RUT ABOGADO" class="filter"/>
+            <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>     
+        </form>
+        <form action="/Duralex/webFiles/listLawyerBySpecialty.php" method="POST">            
+            <select name="ddlSpecialty" required="true">
+                <option value="" >Seleccione Especialidad</option>
+                <?php foreach ($specialties as $x) { ?>
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName() ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="FILTRAR" name="btnFilter" class="filter" />     
         </form>
         <table border="0" class="width">
             <thead>

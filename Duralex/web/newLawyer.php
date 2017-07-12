@@ -44,9 +44,9 @@ and open the template in the editor.
         }
         ?>
         <?php
-
         $specialties = SpecialtyDao::getSpecialties();
         ?>
+        <h3>DURALEX :: Agregar Abogado</h3>
         <form action="/Duralex/webfiles/newLawyer.php" method="POST">
             <table border="0">
                 <tbody>
@@ -60,7 +60,8 @@ and open the template in the editor.
                     </tr>
                     <tr>
                         <td>Especialidad</td>
-                        <td><select name="ddlSpecialty">
+                        <td><select name="ddlSpecialty" required="true">
+                                <option value="" >Seleccione Especialidad</option>
                                 <?php foreach ($specialties as $x) { ?>
                                     <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName() ?></option>
                                 <?php } ?>
@@ -72,7 +73,9 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="AGREGAR" name="btnAdd" />
+            <div class="buttonHolder">
+                <input type="submit" value="AGREGAR" name="btnAdd" />
+            </div>
         </form>
     </body>
 </html>

@@ -127,11 +127,12 @@ class LawyerDao {
         return $lawyers;
     }
     
-    public static function getLawyersBySpecialty(){
+    public static function getLawyersBySpecialty($id){
         $lawyers = new ArrayObject();
         try {
             $pdo = new clasePDO();
-            $select = $pdo->prepare("SELECT * FROM lawyer");
+            $select = $pdo->prepare("SELECT * FROM lawyer WHERE specialty_id=?");
+            $select->bindParam(1, $id);
             $select->execute();
             $fetch = $select->fetchAll();
             
@@ -142,7 +143,7 @@ class LawyerDao {
                 $dto->setName($x['name']);
                 $date = DateTime::createFromFormat('Y-m-d', $x['hire_date']);
                 $dto->setHireDate($date);
-                $dto->getSpecialty()->setId($x['specialty_id']);
+                $dto->setSpecialty(SpecialtyDao::getSpecialtyById($x['specialty_id']));
                 $dto->setHourValue($x['hour_value']);
                 $lawyers->append($dto);
             }
