@@ -246,6 +246,35 @@ class AttentionDao {
         return $attentions;
     }
     
+    public static function getAttentionsByClientRut($rut) {
+        $attentions = new ArrayObject();
+
+        try {
+            $pdo = new clasePDO();
+
+            $select = $pdo->prepare("select attention.id, attention.date, attention.client_id,attention.lawyer_id,attention.status_id "
+                    . "from attention inner join client on attention.client_id=client.id where client.rut=? group by attention.id;");
+            $select->bindParam(1, $rut);
+            $select->execute();
+            $fetch = $select->fetchAll();
+
+            foreach ($fetch as $x) {
+                $dto = new AttentionDto();
+                $dto->setId($x['id']);
+                $date = DateTime::createFromFormat('Y-m-d', $x['date']);
+                $dto->setDate($date);
+                $dto->setClient(ClientDao::getClientById($x['client_id']));
+                $dto->setLawyer(LawyerDao::getLawyerById($x['lawyer_id']));
+                $dto->setStatus(StatusDao::getStatusById($x['status_id']));
+                $attentions->append($dto);
+            }
+        } catch (PDOException $ex) {
+            $attentions = new ArrayObject();
+            echo "Error SQL al obtener atenciones: " . $ex->getMessage();
+        }
+        return $attentions;
+    }
+    
     public static function getAttentionsByClientAndLawyer($rut, $lawyer) {
         $attentions = new ArrayObject();
 

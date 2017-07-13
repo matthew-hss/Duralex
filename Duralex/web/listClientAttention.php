@@ -53,38 +53,27 @@ and open the template in the editor.
             $attentions = $_SESSION['attentions'];
             unset($_SESSION['attentions']);
         } else {
-            $attentions = AttentionDao::getAttentionsByClient($user->getRut());
+            $attentions = AttentionDao::getAttentionsByClientRut($user->getRut());
         }
         ?>
+        <h3>DURALEX :: Listar Atenciones</h3>
         <form action="/Duralex/webFiles/listClientAttentionByLawyer.php" method="POST">
-            <table border="0">                
-                <tbody>
-                    <tr>
-                        <td>Abogado</td>
-                        <td><select name="ddlLawyer">
-                                <?php foreach ($lawyers as $x) { ?>                                        
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
-                                <?php } ?>
-                            </select></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
-                    </tr>
-                </tbody>
-            </table>            
+            <select name="ddlLawyer">
+                <option value="">Seleccione Abogado</option>
+                <?php foreach ($lawyers as $x) { ?>                                        
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getName(); ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>                      
         </form>
         <form action="/Duralex/webFiles/listClientAttentionByStatus.php" method="POST">
-            <table border="0">                
-                <tbody>
-                    <tr>
-                        <td>Estado</td>
-                        <td><select name="ddlStatus">
-                                <?php foreach ($statuses as $x) { ?>                                        
-                                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
-                                <?php } ?>
-                            </select></td>
-                        <td><input type="submit" value="FILTRAR" name="btnFilter" /></td>
-                    </tr>
-                </tbody>
-            </table>            
+            <select name="ddlStatus">
+                <option value="">Seleccione Estado</option>
+                <?php foreach ($statuses as $x) { ?>                                        
+                    <option value="<?php echo $x->getId(); ?>"><?php echo $x->getDescription(); ?></option>
+                <?php } ?>
+            </select>
+            <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>                     
         </form>
         <table border="0" class="width">
             <thead>

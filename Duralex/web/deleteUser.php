@@ -52,6 +52,7 @@ and open the template in the editor.
             $users = UserDao::getUsers();
         }
         ?>
+        <h3>DURALEX :: Eliminar Usuario</h3>
         <form action="/Duralex/webFiles/deleteUser.php" method="POST">
             <table border="0">                
                 <tbody>

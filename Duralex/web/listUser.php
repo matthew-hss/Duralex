@@ -52,6 +52,7 @@ and open the template in the editor.
             $users = UserDao::getUsers();
         }
         ?>
+        <h3>DURALEX :: Listar Usuarios</h3>
         <form action="/Duralex/webFiles/listUserByRut.php" method="POST">
             <table border="0">                
                 <tbody>

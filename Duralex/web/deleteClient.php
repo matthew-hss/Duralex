@@ -45,6 +45,7 @@ and open the template in the editor.
         <?php
         $clients = ClientDao::getClients();
         ?>
+        <h3>DURALEX :: Eliminar Cliente</h3>
         <form action="/Duralex/webFiles/deleteClient.php" method="POST">
             <table border="0">                
                 <tbody>

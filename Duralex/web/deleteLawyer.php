@@ -51,7 +51,8 @@ and open the template in the editor.
         } else {
             $lawyers = LawyerDao::getLawyers();
         }
-        ?>       
+        ?>
+        <h3>DURALEX :: Eliminar Abogado</h3>
         <form action="/Duralex/webFiles/deleteLawyer.php" method="POST">
             <table border="0">                
                 <tbody>

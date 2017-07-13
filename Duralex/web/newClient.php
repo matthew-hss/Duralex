@@ -70,6 +70,7 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
+            <br>
             <div class="buttonHolder">
                 <input type="submit" value="AGREGAR" name="btnAdd" />
             </div>

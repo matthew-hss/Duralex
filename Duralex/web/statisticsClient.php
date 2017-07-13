@@ -56,6 +56,7 @@ and open the template in the editor.
             $attentions = ClientDao::getClientsAttentionAmount();
         }
         ?>
+        <h3>DURALEX :: Estadísticas de Clientes</h3>
         <form action="/Duralex/webFiles/statisticsClientByMonthAmount.php" method="POST">
             <select name="ddlMonth" required="true">
                 <option value="">Seleccione meses antiguedad</option>

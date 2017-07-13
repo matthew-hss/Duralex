@@ -60,7 +60,7 @@ and open the template in the editor.
         $lawyers = LawyerDao::getLawyers();
         $clients = ClientDao::getClients();
         ?>
-        <h3>DURALEX :: Agregar Atención</h3>
+        <h3>DURALEX :: Agendar Atención</h3>
         <form action="/Duralex/webFiles/newAttention.php" method="POST">
             <table border="0">
                 <tbody>
@@ -103,6 +103,7 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
+            <br>
             <div class="buttonHolder">
                 <input type="submit" value="AGREGAR" name="btnAdd" />
             </div>

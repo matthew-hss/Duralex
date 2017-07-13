@@ -56,8 +56,8 @@ and open the template in the editor.
             $attentions = AttentionDao::getAttentions();
         }
         ?>
+        <h3>DURALEX :: Listar Atenciones</h3>
         <form action="/Duralex/webFiles/listAttentionByClient.php" method="POST">
-            <h3>Listar Atenciones</h3>
             <input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)" placeholder="RUT CLIENTE" class="filter"/>
             <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>     
         </form>

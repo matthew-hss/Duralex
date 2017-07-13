@@ -56,9 +56,9 @@ and open the template in the editor.
         }else {
             $lawyers = LawyerDao::getLawyers();
         }
-        ?>       
-        <form action="/Duralex/webFiles/listLawyerByRut.php" method="POST">
-            <h3>Listar abogados</h3>
+        ?>
+        <h3>DURALEX :: Listar Abogados</h3>
+        <form action="/Duralex/webFiles/listLawyerByRut.php" method="POST">            
             <input id="rut" type="text" name="txtRut" value="" required oninput="checkRut(this)" placeholder="RUT ABOGADO" class="filter"/>
             <input type="submit" value="FILTRAR" name="btnFilter" class="filter"/>     
         </form>

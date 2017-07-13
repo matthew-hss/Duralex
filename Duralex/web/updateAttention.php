@@ -65,6 +65,7 @@ and open the template in the editor.
             unset($_SESSION['attention']);
         }
         ?>
+        <h3>DURALEX :: Actualizar Atención</h3>
         <form action="/Duralex/webFiles/requestAttention.php" method="POST">
             <table border="0">
                 <tbody>
@@ -126,10 +127,10 @@ and open the template in the editor.
                     <tr>
                         <td>Fecha</td>
                         <td><input id="datepicker" type="text" name="txtDate" value="<?php
-                                   if (isset($attention)) {
-                                       echo $attention->getDate()->format('d-m-Y');
-                                   }
-                                   ?>" required="true" disabled="true"/></td>
+                            if (isset($attention)) {
+                                echo $attention->getDate()->format('d-m-Y');
+                            }
+                            ?>" required="true" disabled="true"/></td>
                     </tr>
                     <tr>
                         <td>Estado</td>
@@ -151,7 +152,10 @@ and open the template in the editor.
                     </tr>
                 </tbody>
             </table>
-            <input type="submit" value="ACTUALIZAR" name="btnUpdate" />
+            <br>
+            <div class="buttonHolder">
+                <input type="submit" value="ACTUALIZAR" name="btnUpdate" />
+            </div>
         </form>
     </body>
 </html>

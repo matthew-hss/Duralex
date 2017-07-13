@@ -51,7 +51,8 @@ and open the template in the editor.
         } else {
             $clients = ClientDao::getClients();
         }
-        ?>       
+        ?>
+        <h3>DURALEX :: Listar Clientes</h3>
         <form action="/Duralex/webFiles/listClientByRut.php" method="POST">
             <table border="0">                
                 <tbody>

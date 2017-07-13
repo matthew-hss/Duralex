@@ -13,11 +13,16 @@ $specialty = new SpecialtyDto();
 $specialty->setId($_POST['ddlSpecialty']);
 $dto->setSpecialty($specialty);
 
-if(LawyerDao::save($dto)){    
-    $_SESSION['message'] = "Registro exitoso.";
-}else{    
-    $_SESSION['message'] = "Error al agregar.";
+if (!LawyerDao::exist($dto->getRut())) {
+    if (LawyerDao::save($dto)) {
+        $_SESSION['message'] = "Registro exitoso.";
+    } else {
+        $_SESSION['message'] = "Error al agregar.";
+    }
+}else{
+    $_SESSION['message'] = "El rut ya se encuentra registrado.";
 }
+
 
 header('Location: /Duralex/web/newLawyer.php');
 exit();

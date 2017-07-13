@@ -18,13 +18,16 @@ if ($password == $passwordConfirm) {
     } else {
         $dto->setRole(RoleEnum::Cliente);
     }
-
-    if (UserDao::save($dto)) {        
-        $_SESSION['message'] = "Registro exitoso.";
-    } else {        
-        $_SESSION['message'] = "Error al agregar.";
+    if (!UserDao::exist($dto->getRut())) {
+        if (UserDao::save($dto)) {
+            $_SESSION['message'] = "Registro exitoso.";
+        } else {
+            $_SESSION['message'] = "Error al agregar.";
+        }
+    }else{
+        $_SESSION['message'] = "El rut ya se encuentra registrado.";
     }
-} else {    
+} else {
     $_SESSION['message'] = "Las contraseñas no coinciden.";
 }
 
